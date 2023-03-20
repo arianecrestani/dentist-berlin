@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div>
-      <Link to={`/login`}> ACESS HERE</Link>
-      <Stack></Stack>
-      <Link to={`/register`}> ACESS HERE</Link>
+      <Link to={`/login`}>Login</Link>
+      <Stack spacing={3}></Stack>
     </div>
   );
 };
