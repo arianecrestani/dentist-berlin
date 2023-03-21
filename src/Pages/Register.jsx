@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import Inputs from "../Components/Inputs";
+import Link from './Home'
 
 const Register = () => {
   return (
-    <div>Hello world</div>
-  )
-}
+    <div>
+      <Inputs />
+      <Link to={`/`}>Home</Link>
+    </div>
+  );
+};
 
-export default Register
+export default Register;

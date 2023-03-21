@@ -16,6 +16,8 @@ const Inputs = () => {
     size: "lg",
     width: "40rem",
     height: "3rem",
+    border: '2px solid'
+    
   };
   return (
     <div>
@@ -35,7 +37,6 @@ const Inputs = () => {
             <FormHelperText>We'll never share your password.</FormHelperText>
           </FormControl>
         </Box>
-        <Link to={`/register`}>Register</Link>
       </Flex>
     </div>
   );
