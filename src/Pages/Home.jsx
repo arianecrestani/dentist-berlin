@@ -1,29 +1,49 @@
 import { Stack } from "@chakra-ui/react";
-// import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Home = () => {
-  console.log('process.env.REACT_APP_APIKEY', process.env.REACT_APP_APIKEY)
-  const [recipes, setRecipes] = useState([]);
+  const [dentists, setDentists] = useState([]);
 
-  const getApiData = async () => {
-    let recipe = "Vegetarian";
+  const getApiData = async (
+    term,
+    location,
+    categories,
+    sort_by,
+    price,
+    open_now,
+    attributes
+  ) => {
+    const apikey =
+      "DH92QGA5D6MZ90_BUPFU1YFzrXMhIKugwfMvlHXZ2NLzcx7r5A0-iRABaEV541QfRvr_zlg_ZxUxFpJR0Op_58SbfuO6ui_3OmvIPXtCyI_qUOHqndHh9yRu9CMaZHYx";
+    const url = `https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&categories=${categories}&sort_by=${sort_by}&price=${price}&open_now=${open_now}&attributes=${attributes}`;
+    const urlv =
+      "https://api.yelp.com/v3/businesses/search?term=dentists&location=berlin&categories=dentists&sort_by=rating&locale=de_DE";
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer DH92QGA5D6MZ90_BUPFU1YFzrXMhIKugwfMvlHXZ2NLzcx7r5A0-iRABaEV541QfRvr_zlg_ZxUxFpJR0Op_58SbfuO6ui_3OmvIPXtCyI_qUOHqndHh9yRu9CMaZHYx");
 
-    const response = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?diet=${recipe}&apiKey=${process.env.REACT_APP_APIKEY}`
-    );
-    const data = await response.json();
-
-    console.log(data.results);
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    try {
+      const response = await fetch(urlv, requestOptions);
+      const data = await response.json();
+      setDentists(data.businesses);
+      console.log(data.businesses);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   useEffect(() => {
-    getApiData();
+    getApiData("dentists", "berlin", "dentists", "rating", "de_DE");
   }, []);
 
   return (
     <div>
+      <div>{dentists && dentists.map((item) => <li>{item.alias}</li>)}</div>
       <div>
         <Link to={`/login`}>Login</Link>
         <Stack spacing={3}></Stack>
