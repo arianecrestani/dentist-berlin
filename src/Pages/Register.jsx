@@ -1,12 +1,12 @@
 import React from "react";
-import Inputs from "../Components/Inputs";
-import Link from './Home'
+import Inputs from "../Components/PasswordInputs";
+
 
 const Register = () => {
   return (
     <div>
       <Inputs />
-      <Link to={`/`}>Home</Link>
+      {/* <Link to={`/`}>Home</Link> */}
     </div>
   );
 };

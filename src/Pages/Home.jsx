@@ -1,7 +1,7 @@
-import { Stack } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Box, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Spinner} from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
+import Navbar from "../Components/Navbar";
 
 const Home = () => {
   const [dentists, setDentists] = useState([]);
@@ -29,21 +29,17 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <Box bg="#38B2AC" width="100%" height="50vh">
+      <Navbar />
       {loading && <Spinner color="red.500" />}
-      <div>
-        {dentists.map((item) => (
-          <li>
+      <Box>
+        {/* {dentists.map((item, index) => (
+          <li key={index}>
             {item.tags.amenity} {item.tags.name} --- {item.tags["addr:street"]}
           </li>
-        ))}
-      </div>
-
-      <div>
-        <Link to={`/login`}>Login</Link>
-        <Stack spacing={3}></Stack>
-      </div>
-    </div>
+        ))} */}
+      </Box>
+    </Box>
   );
 };
 
