@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Box, HStack, Stack } from "@chakra-ui/react";
 import SearchInput from "./SearchInput";
 
-const Navbar = () => {
+const Navbar = ({ control, setDentists }) => {
   return (
     <>
       <Box display="flex" padding={30}>
@@ -13,7 +13,7 @@ const Navbar = () => {
         </HStack>
       </Box>
       <Stack padding={10} spacing={20}>
-        <SearchInput placeholder="Search for dentist " />
+        <SearchInput control={control} setDentists={setDentists} placeholder="Search for dentist " />
       </Stack>
     </>
   );
