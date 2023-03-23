@@ -1,6 +1,7 @@
 import { Stack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Spinner} from "@chakra-ui/react";
 
 const Home = () => {
   const [dentists, setDentists] = useState([]);
@@ -29,7 +30,7 @@ const Home = () => {
 
   return (
     <div>
-      {loading && <p>loading</p>}
+      {loading && <Spinner color="red.500" />}
       <div>
         {dentists.map((item) => (
           <li>
