@@ -1,11 +1,11 @@
-import { Box, Stack } from "@chakra-ui/react";
+import { Box, Stack, Flex, StackDivider, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Spinner } from "@chakra-ui/react";
 import Navbar from "../Components/Navbar";
 
 const Home = () => {
   const [dentists, setDentists] = useState([]);
-  const [control, setControl] = useState([])
+  const [control, setControl] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const getApiData = async () => {
@@ -15,9 +15,9 @@ const Home = () => {
       .then((response) => response.json())
       .then((data) => {
         setLoading(false);
-        setControl(data.elements)
+        setControl(data.elements);
         setDentists(data.elements);
-        console.log(data.elements)
+        console.log(data.elements);
       })
       .catch((error) => {
         console.error(error);
@@ -32,17 +32,44 @@ const Home = () => {
   }, []);
 
   return (
-    <Box bg="#38B2AC" width="100%" height="50vh">
-      <Navbar control={control} setDentists={setDentists}/>
-      {loading && <Spinner color="red.500" />}
-      <Box>
-        {dentists.map((item, index) => (
-          <li key={index}>
-            {item.tags.amenity} {item.tags.name} --- {item.tags["addr:street"]}
-          </li>
-        ))}
+    <>
+      <Box bg="#01CFC9" width="100%" height="70vh">
+        <Navbar control={control} setDentists={setDentists} />
+        {loading && <Spinner color="red.500" />}
+
+        <Box bg="#EEFBFA" marginBlock={300}>
+          <Flex
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            display="flex"
+            // margin="9rem"
+            padding="2rem"
+          >
+            {dentists.map((item, index) => (
+              <Box
+                margin="2rem"
+                maxW="20rem"
+                minW="50rem"
+                padding="2rem"
+                borderWidth="1px"
+                borderRadius="lg"
+                overflow="hidden"
+                boxShadow="sm"
+                bg="white"
+                key={index}
+                fontSize="xl"
+                fontWeight="bold"
+              >
+                {item.tags.amenity}
+                {item.tags.name} --
+                {item.tags["addr:street"]}
+              </Box>
+            ))}
+          </Flex>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

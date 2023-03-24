@@ -10,7 +10,7 @@ const SearchInput = ({ placeholder, control, setDentists }) => {
       item.tags.name.toLowerCase().includes(input.toLowerCase())
     );
     console.log(filterArray);
-    setDentists(filterArray)
+    setDentists(filterArray);
   };
 
   return (
@@ -18,9 +18,11 @@ const SearchInput = ({ placeholder, control, setDentists }) => {
       <InputGroup display="flex" justifyContent="center">
         <InputLeftElement
           pointerEvents="none"
-          children={<SearchIcon boxSize={6} />}
+          children={<SearchIcon boxSize={8} />}
           transform="translateX(-50%)"
-          left="18%"
+          position='absolute'
+          top='30%'
+          left='12%'
         />
         <Input
           value={input}
@@ -33,7 +35,10 @@ const SearchInput = ({ placeholder, control, setDentists }) => {
           placeholder={placeholder}
         />
       </InputGroup>
-      <button onClick={handleClick}>search</button>
+
+      <button  display="flex" justifyContent="center" onClick={handleClick}>
+        search
+      </button>
     </Box>
   );
 };
