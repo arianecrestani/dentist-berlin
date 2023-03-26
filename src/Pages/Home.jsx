@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Image } from "@chakra-ui/react";
+import { Box, Flex, HStack, Image, Stack, Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Spinner } from "@chakra-ui/react";
 
@@ -49,8 +49,8 @@ const Home = () => {
         />
         <div
           style={{
-            display:'flex',
-            flexDirection:'row',
+            display: "flex",
+            flexDirection: "row",
 
             position: "absolute",
             top: "30%",
@@ -59,7 +59,6 @@ const Home = () => {
           }}
         >
           <SearchInput
-          
             control={control}
             setDentists={setDentists}
             placeholder="Search for dentist "
@@ -69,41 +68,46 @@ const Home = () => {
       {loading && <Spinner color="red.500" />}
 
       {/* <Box bg="#EEFBFA" marginBlock={300}> */}
-        <Flex
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          display="flex"
-          padding="2rem"
-       
-        >
-          {dentists.map((item, index) => (
-            <Box
-              margin="2rem"
-              maxW="20rem"
-              minW="50rem"
-              padding="2rem"
-              borderWidth="1px"
-              borderRadius="lg"
-              overflow="hidden"
-              boxShadow="sm"
-              bg="white"
-              key={index}
-              fontSize="xl"
-              fontWeight="bold"
-     
-            >
-              <div> {item.tags.amenity}</div>
-              <div>{item.tags.name}</div>
+      <Flex
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        display="flex"
+        padding="2rem"
+      >
+        {dentists.map((item, index) => (
+          <Box
+            margin="2rem"
+            maxW="20rem"
+            minW="50rem"
+            padding="2rem"
+            borderWidth="1px"
+            borderRadius="lg"
+            overflow="hidden"
+            boxShadow="sm"
+            bg="white"
+            key={index}
+            fontSize="xl"
+            fontWeight="bold"
+          >
+            {/* <div> {item.tags.amenity}</div> */}
+            <Stack padding={14}>
+              <div padding="10px">{item.tags.name}</div>
               <HStack>
-                <div>{item.tags["addr:street"]}</div>
+                <div margin='10px'>{item.tags["addr:street"]}</div>
                 <div>{item.tags["addr:housenumber"]}</div>
                 <div>{item.tags["addr:city"]}</div>
                 <div>{item.tags["addr:postcode"]}</div>
               </HStack>
-            </Box>
-          ))}
-        </Flex>
+              <Stack direction="row" spacing={4} align="center">
+                <Button  background="yellow.200" variant="outline">
+                  Book apointment
+                </Button>
+              </Stack>
+            </Stack>
+          </Box>
+        ))}
+      </Flex>
       {/* </Box> */}
     </>
   );

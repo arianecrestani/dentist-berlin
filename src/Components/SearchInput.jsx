@@ -14,7 +14,7 @@ const SearchInput = ({ placeholder, control, setDentists }) => {
   };
 
   return (
-    <Box display="flex" flexDirection="row" justifyContent="start" background='blue.400'>
+    <Box display="flex" flexDirection="row" justifyContent="start" background='yellow.200'>
       <InputGroup display="flex">
         <Input
           flex="1"
@@ -29,7 +29,7 @@ const SearchInput = ({ placeholder, control, setDentists }) => {
         />
       </InputGroup>
 
-      <SearchIcon  boxSize={12} margin={3} display="flex" justifyContent="" onClick={handleClick}>
+      <SearchIcon  boxSize={10} margin={3} display="flex" justifyContent="" onClick={handleClick}>
         search
       </SearchIcon>
     </Box>
