@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Box, HStack, Stack } from "@chakra-ui/react";
-import SearchInput from "./SearchInput";
+import { Box, HStack } from "@chakra-ui/react";
 
-
-const Navbar = ({ control, setDentists }) => {
+const Navbar = () => {
   return (
     <>
       <Box display="flex">
@@ -12,9 +10,6 @@ const Navbar = ({ control, setDentists }) => {
           <Link to={`/`}>Home</Link>
           <Link to={`/login`}>Login</Link>
         </HStack>
-      </Box>
-      <Box >
-        <SearchInput control={control} setDentists={setDentists} placeholder="Search for dentist " />
       </Box>
     </>
   );

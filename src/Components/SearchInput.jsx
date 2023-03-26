@@ -14,31 +14,24 @@ const SearchInput = ({ placeholder, control, setDentists }) => {
   };
 
   return (
-    <Box>
-      <InputGroup display="flex" justifyContent="center">
-        <InputLeftElement
-          pointerEvents="none"
-          children={<SearchIcon boxSize={8} />}
-          transform="translateX(-50%)"
-          position='absolute'
-          top='30%'
-          left='12%'
-        />
+    <Box display="flex" flexDirection="row" justifyContent="start" background='blue.400'>
+      <InputGroup display="flex">
         <Input
+          flex="1"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           borderRadius="3px"
           bg="white"
-          height="8vh"
-          width="60rem"
+          height="10vh"
+          width="50rem"
           type="text"
           placeholder={placeholder}
         />
       </InputGroup>
 
-      <button  display="flex" justifyContent="center" onClick={handleClick}>
+      <SearchIcon  boxSize={12} margin={3} display="flex" justifyContent="" onClick={handleClick}>
         search
-      </button>
+      </SearchIcon>
     </Box>
   );
 };
