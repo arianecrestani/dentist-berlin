@@ -8,9 +8,7 @@ import {
   FormHelperText,
   FormErrorMessage,
   Box,
-  Button,
-  Heading,
-  Text
+  Button
 } from "@chakra-ui/react";
 
 const Inputs = () => {
