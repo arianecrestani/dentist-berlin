@@ -8,6 +8,9 @@ import {
   FormHelperText,
   FormErrorMessage,
   Box,
+  Button,
+  Heading,
+  Text
 } from "@chakra-ui/react";
 
 const Inputs = () => {
@@ -20,20 +23,31 @@ const Inputs = () => {
   };
   return (
     <Flex direction="column" align="center">
-      <Box p={12}>
-        <FormControl>
-          <FormLabel>Email</FormLabel>
-          <Input type="email" style={inputStyle} />
-          <FormHelperText>Keep it very short and sweet!</FormHelperText>
-          <FormErrorMessage>Your First name is invalid</FormErrorMessage>
-        </FormControl>
-      </Box>
-      <Box>
-        <FormControl>
-          <FormLabel>Password</FormLabel>
-          <Input type="password" style={inputStyle} />
-          <FormHelperText>We'll never share your password.</FormHelperText>
-        </FormControl>
+      <Box
+        backgroundColor="gray.50"
+        borderRadius="md"
+        padding={8}
+        boxShadow="lg"
+        p={12}
+      >
+        <Box>
+          <FormControl>
+            <FormLabel>Email</FormLabel>
+            <Input type="email" style={inputStyle} />
+            <FormHelperText>Keep it very short and sweet!</FormHelperText>
+            <FormErrorMessage>Your First name is invalid</FormErrorMessage>
+          </FormControl>
+        </Box>
+        <Box>
+          <FormControl>
+            <FormLabel>Password</FormLabel>
+            <Input type="password" style={inputStyle} />
+            <FormHelperText>We'll never share your password.</FormHelperText>
+          </FormControl>
+          <Button type="submit" colorScheme="blue" mt={4} width="full">
+            Login
+          </Button>
+        </Box>
       </Box>
     </Flex>
   );
