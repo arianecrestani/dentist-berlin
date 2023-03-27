@@ -10,7 +10,6 @@ const Register = () => {
         </Heading>
         <Text color="gray.500">Enter your details below</Text>
       </Box>
-
       <Inputs />
       {/* <Link to={`/`}>Home</Link> */}
     </div>

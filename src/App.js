@@ -4,10 +4,12 @@ import LoginForm from "./Pages/LoginForm";
 import Register from "./Pages/Register";
 import Calendar from "./Pages/Calendar";
 import { ChakraProvider } from "@chakra-ui/react";
+import { AuthContext } from "./CartContext/Authentication";
 
 const App = () => {
   return (
     <div className="App">
+      <AuthContext>
       <ChakraProvider>
         <Routes>
           <Route path="/" element={<Home />}></Route>
@@ -16,6 +18,7 @@ const App = () => {
           <Route path="/calendar" element={<Calendar />}></Route>
         </Routes>
       </ChakraProvider>
+      </AuthContext>
     </div>
   );
 };

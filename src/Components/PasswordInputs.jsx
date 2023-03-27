@@ -1,5 +1,6 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import React, { useState } from "react";
+
 import {
   Input,
   Flex,
@@ -12,6 +13,16 @@ import {
 } from "@chakra-ui/react";
 
 const Inputs = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value)
+  }
+
+
+  
+
   const inputStyle = {
     placeholder: "large size",
     size: "lg",
@@ -31,7 +42,7 @@ const Inputs = () => {
         <Box>
           <FormControl>
             <FormLabel>Email</FormLabel>
-            <Input type="email" style={inputStyle} />
+            <Input onChange={handleEmailChange} value={email} type="email" style={inputStyle} />
             <FormHelperText>Keep it very short and sweet!</FormHelperText>
             <FormErrorMessage>Your First name is invalid</FormErrorMessage>
           </FormControl>
@@ -39,7 +50,7 @@ const Inputs = () => {
         <Box>
           <FormControl>
             <FormLabel>Password</FormLabel>
-            <Input type="password" style={inputStyle} />
+            <Input onChange={(event) => setPassword(event.target.value) } value={password} type="password" style={inputStyle} />
             <FormHelperText>We'll never share your password.</FormHelperText>
           </FormControl>
           <Button type="submit" colorScheme="blue" mt={4} width="full">

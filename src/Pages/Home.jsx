@@ -1,11 +1,4 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  Image,
-  Stack,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Flex, HStack, Image, Stack, Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Spinner } from "@chakra-ui/react";
 import Calendar from "./Calendar";
@@ -13,7 +6,6 @@ import { Link } from "react-router-dom";
 import banner from "../banner.png";
 import Navbar from "../Components/Navbar";
 import SearchInput from "../Components/SearchInput";
-
 
 const Home = () => {
   const [dentists, setDentists] = useState([]);
@@ -60,7 +52,6 @@ const Home = () => {
           style={{
             display: "flex",
             flexDirection: "row",
-
             position: "absolute",
             top: "30%",
             left: "30%",
@@ -86,9 +77,9 @@ const Home = () => {
       >
         {dentists.map((item, index) => (
           <Box
-            margin="2rem"
-            maxW="20rem"
-            minW="50rem"
+            margin="4rem"
+            maxW="30rem"
+            minW="70rem"
             padding="2rem"
             borderWidth="1px"
             borderRadius="lg"
@@ -100,6 +91,12 @@ const Home = () => {
             fontWeight="bold"
           >
             {/* <div> {item.tags.amenity}</div> */}
+            <Box display='flex' justifyContent='end'>
+              <HStack>
+                <Calendar />
+              </HStack>
+            </Box>
+
             <Stack padding={14}>
               <div padding="10px">{item.tags.name}</div>
               <HStack>
