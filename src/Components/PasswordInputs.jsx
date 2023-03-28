@@ -11,7 +11,7 @@ import {
   Box,
   Button,
 } from "@chakra-ui/react";
-import { AuthContext } from "../CartContext/AuthContext";
+import { AuthContext } from "../Contexts/AuthContext";
 
 const PasswordInputs = ({ functionType }) => {
   const { createNewUser, logIn } = useContext(AuthContext);
@@ -75,7 +75,7 @@ const PasswordInputs = ({ functionType }) => {
             />
             <FormHelperText>We'll never share your password.</FormHelperText>
           </FormControl>
-          <Button type="submit" colorScheme="blue" mt={4} width="full">
+          <Button onClick={handleSubmit} type="submit" colorScheme="blue" mt={4} width="full">
             Login
           </Button>
         </Box>

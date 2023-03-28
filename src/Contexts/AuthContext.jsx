@@ -7,35 +7,10 @@ import {
 } from "firebase/auth";
 import { auth } from "../fbConfig";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext([]);
 
-export const Authentication = () => {
+export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
-
-  const logIn = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const loggedUser = userCredential.user;
-        setUser(loggedUser);
-        alert("Log in successfull");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-      });
-  };
-
-  const logOut = () => {
-    signOut(auth)
-      .then(() => {
-        setUser(null);
-        console.log("use is logout");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   const createNewUser = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -49,7 +24,33 @@ export const Authentication = () => {
         console.log(errorMessage);
       });
   };
-  const checkForCurrentUser = () => {
+
+  const logIn = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const loggedUser = userCredential.user;
+        setUser(loggedUser);
+        alert("Log in successfull");
+      })
+      .catch((error)=> {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+
+  const logOut =()=> {
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+        console.log("use is logout");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const checkForCurrentUser =()=> {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
@@ -64,7 +65,7 @@ export const Authentication = () => {
   }, []);
   return (
     <AuthContext.Provider value={{ user, logIn, logOut, createNewUser }}>
-      {/* {props.children} */}
+      {children}
     </AuthContext.Provider>
   );
 };

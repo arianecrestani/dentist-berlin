@@ -2,6 +2,7 @@ import React from "react";
 import PasswordInputs from "../Components/PasswordInputs";
 import { Box, Heading, Text } from "@chakra-ui/react";
 // import PasswordInputs from "../Components/PasswordInputs";
+// import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
