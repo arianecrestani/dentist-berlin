@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Input, InputGroup, InputLeftElement, Box } from "@chakra-ui/react";
+import { Input, InputGroup, Box } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 
-const SearchInput = ({ placeholder, control, setDentists }) => {
+const SearchDentists = ({ placeholder, control, setDentists }) => {
   const [input, setInput] = useState("");
 
   const handleClick = () => {
@@ -36,4 +36,4 @@ const SearchInput = ({ placeholder, control, setDentists }) => {
   );
 };
 
-export default SearchInput;
+export default SearchDentists;

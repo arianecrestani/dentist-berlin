@@ -1,6 +1,5 @@
-
 import { Link } from "react-router-dom";
-import Inputs from "../Components/PasswordInputs";
+import PasswordInputs from "../Components/PasswordInputs";
 import { Flex, Box, Heading, Text } from "@chakra-ui/react";
 import Navbar from "../Components/Navbar";
 
@@ -16,7 +15,7 @@ const LoginForm = () => {
           </Heading>
           <Text color="gray.500">Enter your details below</Text>
         </Box>
-        <Inputs />
+        <PasswordInputs functionType={"login"} />
         <Link to={`/register`}>Register</Link>
       </Flex>
     </>

@@ -4,7 +4,7 @@ import LoginForm from "./Pages/LoginForm";
 import Register from "./Pages/Register";
 import Calendar from "./Pages/Calendar";
 import { ChakraProvider } from "@chakra-ui/react";
-import { AuthContext } from "./CartContext/Authentication";
+import { AuthContext } from "./CartContext/AuthContext";
 
 const App = () => {
   return (

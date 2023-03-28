@@ -1,6 +1,8 @@
 import React from "react";
-import Inputs from "../Components/PasswordInputs";
+import PasswordInputs from "../Components/PasswordInputs";
 import { Box, Heading, Text } from "@chakra-ui/react";
+// import PasswordInputs from "../Components/PasswordInputs";
+
 const Register = () => {
   return (
     <div>
@@ -10,7 +12,7 @@ const Register = () => {
         </Heading>
         <Text color="gray.500">Enter your details below</Text>
       </Box>
-      <Inputs />
+      <PasswordInputs functionType={"register"}/>
       {/* <Link to={`/`}>Home</Link> */}
     </div>
   );

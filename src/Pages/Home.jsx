@@ -5,7 +5,7 @@ import Calendar from "./Calendar";
 import { Link } from "react-router-dom";
 import banner from "../banner.png";
 import Navbar from "../Components/Navbar";
-import SearchInput from "../Components/SearchInput";
+import SearchDentists from "../Components/SearchDentists";
 
 const Home = () => {
   const [dentists, setDentists] = useState([]);
@@ -58,7 +58,7 @@ const Home = () => {
             transform: "translate(-50%, -50%)",
           }}
         >
-          <SearchInput
+          <SearchDentists
             control={control}
             setDentists={setDentists}
             placeholder="Search for dentist "
