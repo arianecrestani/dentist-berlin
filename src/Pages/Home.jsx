@@ -2,6 +2,7 @@ import { Box, Flex, HStack, Image, Stack, Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Spinner } from "@chakra-ui/react";
 import Calendar from "./Calendar";
+
 import { Link } from "react-router-dom";
 import banner from "../banner.png";
 import Navbar from "../Components/Navbar";
@@ -105,7 +106,7 @@ const Home = () => {
                 <div>{item.tags["addr:city"]}</div>
                 <div>{item.tags["addr:postcode"]}</div>
               </HStack>
-
+              <Link to={`/forum`}>Forum</Link>
               <Stack direction="row" spacing={4} align="center">
                 <Button background="yellow.200" variant="outline">
                   <Link to={`/calendar`}>Book apointment</Link>
