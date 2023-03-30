@@ -107,10 +107,10 @@ const Home = () => {
                 <div>{item.tags["addr:city"]}</div>
                 <div>{item.tags["addr:postcode"]}</div>
               </HStack>
-              <Link to={`/forum`}>Forum</Link>
+              {/* <Link to={`/forum`}>Forum</Link> */}
               <Stack direction="row" spacing={4} align="center">
                 <Button background="yellow.200" variant="outline">
-                  <Link to={`/calendar`}>Book apointment</Link>
+                  <Link to={`/login`}>Book apointment</Link>
                 </Button>
               </Stack>
             </Stack>
