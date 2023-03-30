@@ -1,10 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 
 import {
-  Heading,
-  Text,
   Input,
   Flex,
   FormControl,
@@ -16,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { Comment } from "./Comment";
+import { UserArea } from "../Pages/UserArea";
 
 const PasswordInputs = ({ functionType }) => {
   const { createNewUser, logIn, user } = useContext(AuthContext);
@@ -49,7 +47,7 @@ const PasswordInputs = ({ functionType }) => {
   return (
     <>
       {user ? (
-        <Comment />
+        <UserArea />
       ) : (
         <Flex direction="column" align="center">
           <Box

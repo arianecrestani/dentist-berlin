@@ -1,8 +1,7 @@
 import React from 'react'
-
 import { Comment } from '../Components/Comment'
 
-export const Forum = () => {
+export const UserArea = () => {
   return (
     <div><Comment/></div>
   )

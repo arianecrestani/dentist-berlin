@@ -1,10 +1,8 @@
 import React from "react";
 import PasswordInputs from "../Components/PasswordInputs";
 import { Box, Heading, Text } from "@chakra-ui/react";
-// import PasswordInputs from "../Components/PasswordInputs";
-// import { Link } from "react-router-dom";
 
-const Register = () => {
+const RegisterForm = () => {
   return (
     <div>
       <Box textAlign="center">
@@ -18,4 +16,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterForm;
