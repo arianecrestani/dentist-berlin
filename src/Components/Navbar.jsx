@@ -7,19 +7,23 @@ import { useContext } from "react";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
-//para cada id tera uma lista de review
+  //para cada id tera uma lista de review
 
   return (
     <Box display="flex">
       <HStack padding={10} spacing={20}>
         <Link to={`/`}>Home</Link>
+
         {user ? (
           <>
-          <button onClick={logOut}>Logout</button>
-          <p>{user.email}</p>
+            <button onClick={logOut}>Logout</button>
+            <p>{user.email}</p>
           </>
         ) : (
-          <Link to="/login">Log in</Link>
+          <>
+            <Link to={`/register`}>Register</Link>
+            <Link to="/login">Log in</Link>
+          </>
         )}
       </HStack>
     </Box>

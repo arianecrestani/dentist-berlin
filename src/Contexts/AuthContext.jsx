@@ -10,7 +10,7 @@ import { auth } from "../fbConfig";
 export const AuthContext = createContext([]);
 
 export const AuthProvider = ({children}) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null)
 
   const createNewUser = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -44,6 +44,7 @@ export const AuthProvider = ({children}) => {
       .then(() => {
         setUser(null);
         console.log("use is logout");
+        
       })
       .catch((error) => {
         console.log(error);

@@ -14,7 +14,6 @@ const Register = () => {
         <Text color="gray.500">Enter your details below</Text>
       </Box>
       <PasswordInputs functionType={"register"}/>
-      {/* <Link to={`/`}>Home</Link> */}
     </div>
   );
 };
