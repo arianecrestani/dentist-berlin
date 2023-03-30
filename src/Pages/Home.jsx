@@ -1,13 +1,12 @@
-import { Box, Flex, HStack, Image, Stack, Button } from "@chakra-ui/react";
+import { Flex, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Spinner } from "@chakra-ui/react";
 import Calendar from "./Calendar";
-
-
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import banner from "../banner.png";
 import Navbar from "../Components/Navbar";
 import SearchDentists from "../Components/SearchDentists";
+import { Dentist } from "../Components/Dentist";
 
 const Home = () => {
   const [dentists, setDentists] = useState([]);
@@ -78,43 +77,8 @@ const Home = () => {
         padding="2rem"
       >
         {dentists.map((item, index) => (
-          <Box
-            margin="4rem"
-            maxW="30rem"
-            minW="70rem"
-            padding="2rem"
-            borderWidth="1px"
-            borderRadius="lg"
-            overflow="hidden"
-            boxShadow="sm"
-            bg="white"
-            key={index}
-            fontSize="xl"
-            fontWeight="bold"
-          >
-            {/* <div> {item.tags.amenity}</div> */}
-            <Box display='flex' justifyContent='end'>
-              <HStack>
-                <Calendar />
-              </HStack>
-            </Box>
-
-            <Stack padding={14}>
-              <div padding="10px">{item.tags.name}</div>
-              <HStack>
-                <div margin="10px">{item.tags["addr:street"]}</div>
-                <div>{item.tags["addr:housenumber"]}</div>
-                <div>{item.tags["addr:city"]}</div>
-                <div>{item.tags["addr:postcode"]}</div>
-              </HStack>
-              {/* <Link to={`/forum`}>Forum</Link> */}
-              <Stack direction="row" spacing={4} align="center">
-                <Button background="yellow.200" variant="outline">
-                  <Link to={`/login`}>Book apointment</Link>
-                </Button>
-              </Stack>
-            </Stack>
-          </Box>
+          <Dentist key={index} item={item} index={index} />
+          
         ))}
       </Flex>
       {/* </Box> */}
