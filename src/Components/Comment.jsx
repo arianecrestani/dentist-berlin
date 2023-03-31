@@ -18,6 +18,7 @@ export const Comment = ({ item, index }) => {
       date: date,
       dentist: item.id,
     };
+    
     if (inputValue === "") {
       alert("please fill out");
     } else {

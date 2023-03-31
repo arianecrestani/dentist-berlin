@@ -7,11 +7,13 @@ import banner from "../banner.png";
 import Navbar from "../Components/Navbar";
 import SearchDentists from "../Components/SearchDentists";
 import { Dentist } from "../Components/Dentist";
+import { HoursDetail } from "../Components/HoursDetail";
 
 const Home = () => {
   const [dentists, setDentists] = useState([]);
   const [control, setControl] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [openCart, setOpenCart] = useState({ open: false, dentist: {} });
   const getApiData = async () => {
     const testUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node(around:3000,52.516275,13.377704)[amenity=dentist];out;`;
 
@@ -28,13 +30,16 @@ const Home = () => {
         setLoading(false);
       });
   };
+  const handleOpen = (item) => {
+    setOpenCart({ open: true, dentist: item });
+  };
 
   useEffect(() => {
     setLoading(true);
 
     getApiData();
   }, []);
-  // const hasDentist = dentists.length > 0;
+
 
   return (
     <>
@@ -68,6 +73,13 @@ const Home = () => {
       </div>
       {loading && <Spinner color="red.500" />}
 
+      <HoursDetail
+        isOpen={openCart.open}
+        onOpen={() => setOpenCart({ open: true, dentist: openCart.dentist })}
+        onClose={() => setOpenCart({ open: false, dentist: {} })}
+        dentist={openCart.dentist}
+      />
+
       {/* <Box bg="#EEFBFA" marginBlock={300}> */}
       <Flex
         flexDirection="column"
@@ -77,8 +89,8 @@ const Home = () => {
         padding="2rem"
       >
         {dentists.map((item, index) => (
-          <Dentist key={index} item={item} index={index} />
-          
+        <Dentist onClick={() => handleOpen(item)} key={index} item={item}/>
+
         ))}
       </Flex>
       {/* </Box> */}
