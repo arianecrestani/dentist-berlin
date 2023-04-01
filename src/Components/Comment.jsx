@@ -3,27 +3,35 @@ import { Box, Button, Flex, Input, Stack, Text } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { collection, addDoc, getDocs2 } from "firebase/firestore";
 import { db } from "../fbConfig";
-import { Dentist } from "./Dentist";
+// import { Dentist } from "./Dentist";
 
 export const Comment = ({ item, index }) => {
   const { user } = useContext(AuthContext);
   const [inputValue, setInputValue] = useState("");
+  // const [mensage, setMenssage] = useState([])
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
     const date = new Date().toDateString();
+
     const newMessage = {
       author: user.email,
       text: inputValue,
       date: date,
       dentist: item.id,
     };
+
+    // const feedbackAuthor = newMessage.map((mensage)=> mensage.author) }
+
     
     if (inputValue === "") {
       alert("please fill out");
     } else {
       try {
         const docRef = await addDoc(collection(db, "feedback"), newMessage);
+   
+
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
         console.error("Error adding document: ", e);
@@ -31,6 +39,8 @@ export const Comment = ({ item, index }) => {
     }
     console.log(newMessage);
   };
+
+
   useEffect(() => {});
 
   return (
@@ -51,6 +61,8 @@ export const Comment = ({ item, index }) => {
                 mr="4"
                 placeholder="Leave a comment"
               />
+      
+  
               <Button colorScheme="blue" type="submit" onClick={handleSubmit}>
                 Add
               </Button>

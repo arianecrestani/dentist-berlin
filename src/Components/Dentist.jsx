@@ -1,12 +1,17 @@
 import React from "react";
 import { Box, HStack, Stack, Button } from "@chakra-ui/react";
-
-// import { Link } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { HoursDetail } from "./HoursDetail";
+import { Comment } from "./Comment";
+import { Collapse } from "@chakra-ui/react";
 
 export const Dentist = ({ item, index }) => {
+  const [showMore, setShowMore] = useState(false);
+
+  const toggleShowMore = () => {
+    setShowMore(!showMore);
+  };
   const [openCart, setOpenCart] = useState({ open: false, dentist: {} });
 
   const handleOpen = (item) => {
@@ -28,9 +33,6 @@ export const Dentist = ({ item, index }) => {
       fontSize="xl"
       fontWeight="bold"
     >
-      {/* <div> {item.tags.amenity}</div> */}
-  
-
       <Stack padding={14}>
         <div padding="10px">{item.tags.name}</div>
         <HStack>
@@ -39,7 +41,15 @@ export const Dentist = ({ item, index }) => {
           <div>{item.tags["addr:city"]}</div>
           <div>{item.tags["addr:postcode"]}</div>
         </HStack>
-        {/* <Link to={`/forum`}>Forum</Link> */}
+
+        <Collapse in={showMore}>
+          <Box display="flex" justifyContent="end">
+            <HStack>
+              <Comment item={item} index={index} />
+            </HStack>
+          </Box>
+        </Collapse>
+
         <Stack direction="row" spacing={4} align="center">
           <HoursDetail
             isOpen={openCart.open}
@@ -53,7 +63,16 @@ export const Dentist = ({ item, index }) => {
             onClick={() => handleOpen(item)}
             background="yellow.200"
             variant="outline"
-          >open</Button>
+          >
+            Aviability
+          </Button>
+          <Button
+            background="yellow.200"
+            variant="outline"
+            onClick={toggleShowMore}
+          >
+            {showMore ? "Hidden" : "write a feedback"}
+          </Button>
         </Stack>
       </Stack>
     </Box>
