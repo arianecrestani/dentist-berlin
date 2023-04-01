@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, HStack, Stack, Button } from "@chakra-ui/react";
-import Calendar from "../Pages/Calendar";
+
 // import { Link } from "react-router-dom";
-import { Comment } from "./Comment";
+
 import { useState } from "react";
 import { HoursDetail } from "./HoursDetail";
 
@@ -29,12 +29,7 @@ export const Dentist = ({ item, index }) => {
       fontWeight="bold"
     >
       {/* <div> {item.tags.amenity}</div> */}
-      <Box display="flex" justifyContent="end">
-        <HStack>
-          <Calendar />
-          <Comment item={item} index={index} />
-        </HStack>
-      </Box>
+  
 
       <Stack padding={14}>
         <div padding="10px">{item.tags.name}</div>

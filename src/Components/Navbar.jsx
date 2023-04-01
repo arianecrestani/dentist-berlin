@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Box, HStack } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { useContext } from "react";
+import { UserArea } from "../Pages/UserArea";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -18,6 +19,9 @@ const Navbar = () => {
           <>
             <button onClick={logOut}>Logout</button>
             <p>{user.email}</p>
+            <Link to="/login">
+              user
+            </Link>
           </>
         ) : (
           <>

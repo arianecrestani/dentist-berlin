@@ -12,7 +12,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
-import { Comment } from "./Comment";
+// import { Comment } from "./Comment";
 import { UserArea } from "../Pages/UserArea";
 
 const PasswordInputs = ({ functionType }) => {

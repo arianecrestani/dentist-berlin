@@ -1,46 +1,38 @@
-import { useState } from "react";
-import { GridItem, Grid } from "@chakra-ui/react";
+// import { useState } from "react";
+// import { Button } from "@chakra-ui/react";
 
-function Calendar() {
+// function Calendar() {
+//   const [currentDay, setCurrentDay] = useState(0);
+//   const [nextTwoWeeks, setNextTwoWeeks] = useState(getNextTwoWeeks());
 
-  // const [currentDay, setCurrentDay]= useState(new Date().getDay())
-  const [currentDay, setCurrentDay]= useState(new Date())
+//   function getNextTwoWeeks() {
+//     const today = new Date();
+//     const nextTwoWeeks = [];
+//     for (let i = 0; i < 14; i++) {
+//       const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() + i);
+//       nextTwoWeeks.push(date);
+//     }
+//     return nextTwoWeeks;
+//   }
 
-  // first div days of week
-  // current day
-  // map over each day will be a modal
 
-  console.log(currentDay)
+//   // first div days of week
+//   // current day
+//   // map over each day will be a modal
 
+//   console.log(currentDay);
 
-  return (
-    <>
-  
-      <Grid templateColumns="repeat(7, 1fr)" gap={5} mb="5">
-        <GridItem bg="pink" colSpan={1}>
-          Sun
-        </GridItem>
-        <GridItem bg="pink" colSpan={1}>
-          Mon
-        </GridItem>
-        <GridItem bg="pink" colSpan={1}>
-          Tue
-        </GridItem>
-        <GridItem bg="pink" colSpan={1}>
-          Wed
-        </GridItem>
-        <GridItem bg="pink" colSpan={1}>
-          Thu
-        </GridItem>
-        <GridItem bg="pink" colSpan={1}>
-          Fri
-        </GridItem>
-        <GridItem bg="pink" colSpan={1}>
-          Sat
-        </GridItem>
-      </Grid>
-    </>
-  );
-}
+//   return (
+//     <>
+//     {nextTwoWeeks.map((item)=> ) }
 
-export default Calendar;
+//       <Button
+//         onChange={(e) => setCurrentDay(currentDay)}
+//         background="yellow.200"
+//         variant="outline"
+//       ></Button>
+//     </>
+//   );
+// }
+
+// export default Calendar;
