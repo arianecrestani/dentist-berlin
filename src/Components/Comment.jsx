@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Box, Button, Flex, Input, Stack, Text } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
-import { collection, addDoc, getDocs2 } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "../fbConfig";
 // import { Dentist } from "./Dentist";
 
 export const Comment = ({ item, index }) => {
   const { user } = useContext(AuthContext);
   const [inputValue, setInputValue] = useState("");
+  const [feedbackAuthor, setFeedbackAuthor] = useState(null);
   // const [mensage, setMenssage] = useState([])
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
     const date = new Date().toDateString();
 
@@ -22,15 +22,21 @@ export const Comment = ({ item, index }) => {
       dentist: item.id,
     };
 
-    // const feedbackAuthor = newMessage.map((mensage)=> mensage.author) }
-
-    
     if (inputValue === "") {
       alert("please fill out");
     } else {
       try {
-        const docRef = await addDoc(collection(db, "feedback"), newMessage);
-   
+        const authorFeedback = newMessage.author;
+        const textComment = newMessage.text;
+        const feedbackDate = newMessage.date;
+
+        const docRef = await addDoc(collection(db, "feedback"), {
+          textComment,
+          feedbackDate,
+          authorFeedback,
+        });
+        setFeedbackAuthor(`${authorFeedback} ${textComment} ${feedbackDate}`);
+        setInputValue("");
 
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
@@ -40,20 +46,21 @@ export const Comment = ({ item, index }) => {
     console.log(newMessage);
   };
 
-
   useEffect(() => {});
 
   return (
     <div>
+      <Stack>
+        <Box bg="gray.100" borderRadius="md">
+          <Text fontSize="md">{feedbackAuthor}</Text>
+        </Box>
+      </Stack>
       <Box bg="blue.300">
         <Box borderWidth="2px" borderRadius="lg" p="20">
           <Text fontSize="xl" fontWeight="bold" mb="2">
             Feedback
           </Text>
           <Stack spacing="4">
-            <Box p="2" bg="gray.100" borderRadius="md">
-              <Text fontSize="md"></Text>
-            </Box>
             <Flex>
               <Input
                 value={inputValue}
@@ -61,8 +68,7 @@ export const Comment = ({ item, index }) => {
                 mr="4"
                 placeholder="Leave a comment"
               />
-      
-  
+
               <Button colorScheme="blue" type="submit" onClick={handleSubmit}>
                 Add
               </Button>
