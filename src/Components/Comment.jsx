@@ -26,21 +26,22 @@ export const Comment = ({ item, index }) => {
       alert("please fill out");
     } else {
       try {
-        const authorFeedback = newMessage.author;
+        const authorName = newMessage.author;
         const textComment = newMessage.text;
         const feedbackDate = newMessage.date;
 
         const docRef = await addDoc(collection(db, "feedback"), {
+          authorName,
           textComment,
           feedbackDate,
-          authorFeedback,
         });
-        setFeedbackAuthor(`${authorFeedback} ${textComment} ${feedbackDate}`);
+        setFeedbackAuthor(`${authorName} ${textComment} ${feedbackDate}`);
         setInputValue("");
 
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
         console.error("Error adding document: ", e);
+        alert('try again')
       }
     }
     console.log(newMessage);
@@ -55,7 +56,7 @@ export const Comment = ({ item, index }) => {
           <Text fontSize="md">{feedbackAuthor}</Text>
         </Box>
       </Stack>
-      <Box bg="blue.300">
+      <Box>
         <Box borderWidth="2px" borderRadius="lg" p="20">
           <Text fontSize="xl" fontWeight="bold" mb="2">
             Feedback

@@ -1,6 +1,7 @@
 import PasswordInputs from "../Components/PasswordInputs";
-import { Flex, Box, Heading, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Navbar from "../Components/Navbar";
+// import { Box, Heading, Text } from "@chakra-ui/react";
 
 const LoginForm = () => {
   return (

@@ -17,6 +17,9 @@ export const AuthProvider = ({children}) => {
       .then((userCredential) => {
         const newUser = userCredential.user;
         console.log(newUser);
+        alert('hey have you now register')
+  
+      
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -25,12 +28,12 @@ export const AuthProvider = ({children}) => {
       });
   };
 
+
   const logIn = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const loggedUser = userCredential.user;
         setUser(loggedUser);
-        alert("Log in successfull");
       })
       .catch((error)=> {
         const errorCode = error.code;

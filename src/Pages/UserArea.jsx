@@ -7,7 +7,7 @@ export const UserArea = ({ item, index }) => {
     <div>
       <Box display="flex" justifyContent="end">
         <HStack>
-          <Comment item={item} index={index} />
+          {/* <Comment item={item} index={index} /> */}
         </HStack>
       </Box>
     </div>

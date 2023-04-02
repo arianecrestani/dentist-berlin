@@ -15,6 +15,7 @@ import { AuthContext } from "../Contexts/AuthContext";
 // import { Comment } from "./Comment";
 import { UserArea } from "../Pages/UserArea";
 
+
 const PasswordInputs = ({ functionType }) => {
   const { createNewUser, logIn, user } = useContext(AuthContext);
   const [email, setEmail] = useState("");
@@ -26,15 +27,17 @@ const PasswordInputs = ({ functionType }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (functionType === "register") {
-      createNewUser(email, password);
+      createNewUser(email, password) 
       setEmail("");
       setPassword("");
+
     }
     if (functionType === "login") {
       logIn(email, password);
       setEmail("");
       setPassword("");
     }
+
   };
 
   const inputStyle = {
@@ -46,6 +49,7 @@ const PasswordInputs = ({ functionType }) => {
   };
   return (
     <>
+
       {user ? (
         <UserArea />
       ) : (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, HStack, Stack, Button } from "@chakra-ui/react";
+import { Box, HStack, Stack, Button, Avatar, Divider } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { HoursDetail } from "./HoursDetail";
@@ -33,8 +33,14 @@ export const Dentist = ({ item, index }) => {
       fontSize="xl"
       fontWeight="bold"
     >
-      <Stack padding={14}>
-        <div padding="10px">{item.tags.name}</div>
+      <Divider orientation="horizontal" />
+
+      <Stack padding={10} spacing={10}>
+        <HStack spacing={7}>
+          <Avatar size="lg" name="Dentist" src="https://bit.ly/broken-link" />
+          <div padding="10px">{item.tags.name}</div>
+        </HStack>
+
         <HStack>
           <div margin="10px">{item.tags["addr:street"]}</div>
           <div>{item.tags["addr:housenumber"]}</div>
