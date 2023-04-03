@@ -48,8 +48,9 @@ export const Dentist = ({ item, index, feedback }) => {
       bg="white"
       p="14"
       m='4'
+
     >
-      <Flex justifyContent="center" p={4}>
+      <Flex  justifyContent="center" p={4} >
         <Avatar name={item.tags.name} src="https://bit.ly/broken-link" />
         <Box ml={3}>
           <Heading as="h2" size="md">
@@ -76,7 +77,7 @@ export const Dentist = ({ item, index, feedback }) => {
           onClose={() => setOpenCart({ open: false, dentist: {} })}
           dentist={openCart.dentist}
         />
-        <Stack direction="row" spacing={4} align="center">
+        <Stack direction="row" spacing={4} align="center" justifyContent='center'>
           <Button
             onClick={() => handleOpen(item)}
             background="yellow.200"

@@ -23,7 +23,7 @@ const SearchDentists = ({ placeholder, control, setDentists }) => {
           borderRadius="3px"
           bg="white"
           height="10vh"
-          width="50rem"
+          width="40rem"
           type="text"
           placeholder={placeholder}
         />
