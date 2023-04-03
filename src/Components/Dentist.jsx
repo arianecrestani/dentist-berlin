@@ -40,14 +40,16 @@ export const Dentist = ({ item, index, feedback }) => {
   return (
     <Box
       maxW="xl"
-      minW="xl"
+      minW="2xl"
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
       boxShadow="sm"
       bg="white"
+      p="14"
+      m='4'
     >
-      <Flex align="center" p={4}>
+      <Flex justifyContent="center" p={4}>
         <Avatar name={item.tags.name} src="https://bit.ly/broken-link" />
         <Box ml={3}>
           <Heading as="h2" size="md">

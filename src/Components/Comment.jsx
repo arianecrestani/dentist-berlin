@@ -63,11 +63,11 @@ export const Comment = ({ feedback, item }) => {
   return (
     <div>
       <Stack>
-        <Box borderWidth="1px" borderRadius="lg" p="4">
+        <Box borderWidth="1px" borderRadius="lg" p="4" justifyContent='center' >
           {dentistFeedback.map((dentist) => {
             const comment = `${dentist.author} ${dentist.text} ${dentist.date}`;
             return (
-              <Flex key={dentist.id} borderWidth="1px" borderRadius="lg" p="4">
+              <Flex key={dentist.id} borderWidth="1px" borderRadius="lg" p="4" >
               <Avatar name={dentist.author} src="https://bit.ly/broken-link" />
               <Box ml="4">
                 <Text fontWeight="bold">{dentist.author}</Text>
