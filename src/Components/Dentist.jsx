@@ -1,5 +1,15 @@
 import React, { useEffect } from "react";
-import { Box, HStack, Stack, Button, Avatar, Divider } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Stack,
+  Button,
+  Avatar,
+  Divider,
+  Flex,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { HoursDetail } from "./HoursDetail";
@@ -29,34 +39,28 @@ export const Dentist = ({ item, index, feedback }) => {
 
   return (
     <Box
-      margin="4rem"
-      maxW="30rem"
-      minW="70rem"
-      padding="2rem"
+      maxW="xl"
+      minW="xl"
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
       boxShadow="sm"
       bg="white"
-      key={index}
-      fontSize="xl"
-      fontWeight="bold"
     >
-      <Divider orientation="horizontal" />
-
-      <Stack padding={10} spacing={10}>
-        <HStack spacing={7}>
-          <Avatar size="lg" name="Dentist" src="https://bit.ly/broken-link" />
-          <div padding="10px">{item.tags.name}</div>
-        </HStack>
-
-        <HStack>
-          <div margin="10px">{item.tags["addr:street"]}</div>
-          <div>{item.tags["addr:housenumber"]}</div>
-          <div>{item.tags["addr:city"]}</div>
-          <div>{item.tags["addr:postcode"]}</div>
-        </HStack>
-
+      <Flex align="center" p={4}>
+        <Avatar name={item.tags.name} src="https://bit.ly/broken-link" />
+        <Box ml={3}>
+          <Heading as="h2" size="md">
+            {item.tags.name}
+          </Heading>
+          <Text fontSize="sm" color="gray.500">
+            {item.tags["addr:street"]} {item.tags["addr:housenumber"]},{" "}
+            {item.tags["addr:city"]} {item.tags["addr:postcode"]}
+          </Text>
+        </Box>
+      </Flex>
+      <Divider />
+      <Box p={4}>
         <Collapse in={showMore}>
           <Box display="flex" justifyContent="end">
             <HStack>
@@ -64,7 +68,6 @@ export const Dentist = ({ item, index, feedback }) => {
             </HStack>
           </Box>
         </Collapse>
-
         <HoursDetail
           isOpen={openCart.open}
           onOpen={() => setOpenCart({ open: true, dentist: openCart.dentist })}
@@ -77,31 +80,30 @@ export const Dentist = ({ item, index, feedback }) => {
             background="yellow.200"
             variant="outline"
           >
-            Aviability
+            Availability
           </Button>
           <>
-          {user ? (
-            <Button
-              background="yellow.200"
-              variant="outline"
-              onClick={toggleShowMore}
-            >
-              {showMore ? "Hidden" : "Write a feedback"}
-            </Button>
-          ) : (
-            <Button
-              background="yellow.200"
-              variant="outline"
-              as={Link}
-              to="/login"
-            > 
-              Write a feedback
-            </Button>
-          )}
+            {user ? (
+              <Button
+                background="yellow.200"
+                variant="outline"
+                onClick={toggleShowMore}
+              >
+                {showMore ? "Hidden" : "Write a feedback"}
+              </Button>
+            ) : (
+              <Button
+                background="yellow.200"
+                variant="outline"
+                as={Link}
+                to="/login"
+              >
+                Write a feedback
+              </Button>
+            )}
           </>
         </Stack>
-        <Divider orientation="horizontal" />
-      </Stack>
+      </Box>
     </Box>
   );
 };

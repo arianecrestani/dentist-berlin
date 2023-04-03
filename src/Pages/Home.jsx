@@ -10,7 +10,6 @@ import { Dentist } from "../Components/Dentist";
 import { db } from "../fbConfig";
 import { collection, getDocs } from "firebase/firestore";
 
-
 const Home = () => {
   const [dentists, setDentists] = useState([]);
   const [control, setControl] = useState([]);
@@ -32,22 +31,22 @@ const Home = () => {
         setLoading(false);
       });
   };
-  const [feedback, setFeedback] = useState([])
+  const [feedback, setFeedback] = useState([]);
   const getFeedback = async () => {
     const querySnapshot = await getDocs(collection(db, "feedback"));
-    const feedbackArray = []
+    const feedbackArray = [];
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      const singleFeedback = { 
-        id : doc.id,
-        ...doc.data()
-      }
-      
-      feedbackArray.push(singleFeedback)
-      
+      const singleFeedback = {
+        id: doc.id,
+        ...doc.data(),
+      };
+
+      feedbackArray.push(singleFeedback);
+
       // console.log(doc.id, " => ", doc.data());
     });
-    setFeedback(feedbackArray)
+    setFeedback(feedbackArray);
   };
 
   useEffect(() => {
@@ -92,25 +91,21 @@ const Home = () => {
       </div>
       {loading && <Spinner color="red.500" />}
 
-      <Box bg="#EEFBFA" >
+      <Box bg="#EEFBFA">
         <Flex
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
           display="flex"
-          padding="2rem"
-        >
 
+        >
           {dentists.map((item, index) => (
-              <Dentist
-              
-                key={index}
-                item={item}
-                index={index}
-                feedback={feedback}
-              />
-              
-            
+            <Dentist
+              key={index}
+              item={item}
+              index={index}
+              feedback={feedback}
+            />
           ))}
         </Flex>
       </Box>

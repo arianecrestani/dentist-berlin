@@ -57,7 +57,7 @@ const PasswordInputs = ({ functionType }) => {
           <Box
             backgroundColor="gray.50"
             borderRadius="md"
-            padding={8}
+            padding={4}
             boxShadow="lg"
             p={12}
           >
@@ -91,7 +91,7 @@ const PasswordInputs = ({ functionType }) => {
                 onClick={handleSubmit}
                 type="submit"
                 colorScheme="blue"
-                mt={4}
+                mt={2}
                 width="full"
               >
                 Login

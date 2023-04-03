@@ -21,7 +21,6 @@ export const HoursDetail = ({ isOpen, onClose, dentist }) => {
           <ModalCloseButton />
           <ModalBody>
             <Calendar />
-            {/* <Calendar /> */}
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>

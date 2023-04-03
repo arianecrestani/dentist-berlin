@@ -1,5 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Box, Button, Flex, Input, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Input,
+  Stack,
+  Text,
+  Avatar,
+  HStack,
+} from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../fbConfig";
@@ -54,10 +63,18 @@ export const Comment = ({ feedback, item }) => {
   return (
     <div>
       <Stack>
-        <Box bg="gray.100" borderRadius="md" p="20">
+        <Box borderWidth="1px" borderRadius="lg" p="4">
           {dentistFeedback.map((dentist) => {
             const comment = `${dentist.author} ${dentist.text} ${dentist.date}`;
-            return <Text fontSize="md">{comment}</Text>;
+            return (
+              <Flex key={dentist.id} borderWidth="1px" borderRadius="lg" p="4">
+              <Avatar name={dentist.author} src="https://bit.ly/broken-link" />
+              <Box ml="4">
+                <Text fontWeight="bold">{dentist.author}</Text>
+                <Text fontSize="md">{comment}</Text>
+              </Box>
+            </Flex>
+            );
           })}
         </Box>
       </Stack>
