@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalCloseButton,
 } from "@chakra-ui/react";
-// import Calendar from "../Pages/Calendar";
+import Calendar from "../Pages/Calendar";
 
 export const HoursDetail = ({ isOpen, onClose, dentist }) => {
   return (
@@ -17,11 +17,10 @@ export const HoursDetail = ({ isOpen, onClose, dentist }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader></ModalHeader>
+          <ModalHeader> {dentist.name}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {dentist.name}
-
+            <Calendar />
             {/* <Calendar /> */}
           </ModalBody>
           <ModalFooter>
