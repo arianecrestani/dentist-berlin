@@ -5,10 +5,11 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../fbConfig";
 // import { Dentist } from "./Dentist";
 
-export const Comment = ({ item, index }) => {
+export const Comment = ({ feedback, item }) => {
   const { user } = useContext(AuthContext);
   const [inputValue, setInputValue] = useState("");
   const [feedbackAuthor, setFeedbackAuthor] = useState(null);
+  const [dentistFeedback, setDentistFeedback] = useState([]);
   // const [mensage, setMenssage] = useState([])
 
   const handleSubmit = async (e) => {
@@ -30,30 +31,34 @@ export const Comment = ({ item, index }) => {
         const textComment = newMessage.text;
         const feedbackDate = newMessage.date;
 
-        const docRef = await addDoc(collection(db, "feedback"), {
-          authorName,
-          textComment,
-          feedbackDate,
-        });
+        const docRef = await addDoc(collection(db, "feedback"), newMessage);
         setFeedbackAuthor(`${authorName} ${textComment} ${feedbackDate}`);
         setInputValue("");
 
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
         console.error("Error adding document: ", e);
-        alert('try again')
+        alert("try again");
       }
     }
     console.log(newMessage);
   };
 
-  useEffect(() => {});
+  useEffect(() => {
+    if (feedback.length > 0) {
+      const filterFeedback = feedback.filter((fb) => fb.dentist === item.id);
+      setDentistFeedback(filterFeedback);
+    }
+  }, [feedback]);
 
   return (
     <div>
       <Stack>
-        <Box bg="gray.100" borderRadius="md">
-          <Text fontSize="md">{feedbackAuthor}</Text>
+        <Box bg="gray.100" borderRadius="md" p="20">
+          {dentistFeedback.map((dentist) => {
+            const comment = `${dentist.author} ${dentist.text} ${dentist.date}`;
+            return <Text fontSize="md">{comment}</Text>;
+          })}
         </Box>
       </Stack>
       <Box>

@@ -1,22 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, HStack, Stack, Button, Avatar, Divider } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { HoursDetail } from "./HoursDetail";
 import { Comment } from "./Comment";
 import { Collapse } from "@chakra-ui/react";
+import { AuthContext } from "../Contexts/AuthContext";
+import { useContext } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../fbConfig";
 
-export const Dentist = ({ item, index }) => {
+
+export const Dentist = ({ item, index, feedback}) => {
+
   const [showMore, setShowMore] = useState(false);
+ 
+  const { user } = useContext(AuthContext);
 
   const toggleShowMore = () => {
-    setShowMore(!showMore);
+    if (user) {
+      setShowMore(!showMore);
+    }
   };
   const [openCart, setOpenCart] = useState({ open: false, dentist: {} });
 
   const handleOpen = (item) => {
     setOpenCart({ open: true, dentist: item.tags });
   };
+  
 
   return (
     <Box
@@ -51,20 +62,18 @@ export const Dentist = ({ item, index }) => {
         <Collapse in={showMore}>
           <Box display="flex" justifyContent="end">
             <HStack>
-              <Comment item={item} index={index} />
+              <Comment feedback={feedback} item={item} />
             </HStack>
           </Box>
         </Collapse>
 
+        <HoursDetail
+          isOpen={openCart.open}
+          onOpen={() => setOpenCart({ open: true, dentist: openCart.dentist })}
+          onClose={() => setOpenCart({ open: false, dentist: {} })}
+          dentist={openCart.dentist}
+        />
         <Stack direction="row" spacing={4} align="center">
-          <HoursDetail
-            isOpen={openCart.open}
-            onOpen={() =>
-              setOpenCart({ open: true, dentist: openCart.dentist })
-            }
-            onClose={() => setOpenCart({ open: false, dentist: {} })}
-            dentist={openCart.dentist}
-          />
           <Button
             onClick={() => handleOpen(item)}
             background="yellow.200"
@@ -72,12 +81,13 @@ export const Dentist = ({ item, index }) => {
           >
             Aviability
           </Button>
+
           <Button
             background="yellow.200"
             variant="outline"
             onClick={toggleShowMore}
           >
-            {showMore ? "Hidden" : "write a feedback"}
+            {showMore ? "Hidden" : "Write a feedback"}
           </Button>
         </Stack>
       </Stack>

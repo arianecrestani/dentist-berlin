@@ -1,5 +1,5 @@
 import { Flex, Image, Box } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Spinner } from "@chakra-ui/react";
 import Calendar from "./Calendar";
 // import { Link } from "react-router-dom";
@@ -7,6 +7,8 @@ import banner from "../banner.png";
 import Navbar from "../Components/Navbar";
 import SearchDentists from "../Components/SearchDentists";
 import { Dentist } from "../Components/Dentist";
+import { db } from "../fbConfig";
+import { collection, getDocs } from "firebase/firestore";
 
 
 const Home = () => {
@@ -23,14 +25,34 @@ const Home = () => {
         setLoading(false);
         setControl(data.elements);
         setDentists(data.elements);
-        console.log(data.elements);
+        // console.log(data.elements);
       })
       .catch((error) => {
         console.error(error);
         setLoading(false);
       });
   };
+  const [feedback, setFeedback] = useState([])
+  const getFeedback = async () => {
+    const querySnapshot = await getDocs(collection(db, "feedback"));
+    const feedbackArray = []
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      const singleFeedback = { 
+        id : doc.id,
+        ...doc.data()
+      }
+      
+      feedbackArray.push(singleFeedback)
+      
+      // console.log(doc.id, " => ", doc.data());
+    });
+    setFeedback(feedbackArray)
+  };
 
+  useEffect(() => {
+    getFeedback();
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -80,12 +102,15 @@ const Home = () => {
         >
 
           {dentists.map((item, index) => (
-            <>
               <Dentist
+              
                 key={index}
                 item={item}
+                index={index}
+                feedback={feedback}
               />
-            </>
+              
+            
           ))}
         </Flex>
       </Box>

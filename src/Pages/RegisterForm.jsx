@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
 
 const RegisterForm = () => {
-  const { createNewUser, logIn, user } = useContext(AuthContext);
+
   return (
     <div>
       <Navbar />
