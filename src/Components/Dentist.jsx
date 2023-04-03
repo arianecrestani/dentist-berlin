@@ -9,12 +9,11 @@ import { AuthContext } from "../Contexts/AuthContext";
 import { useContext } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../fbConfig";
+import LoginForm from "../Pages/LoginForm";
 
-
-export const Dentist = ({ item, index, feedback}) => {
-
+export const Dentist = ({ item, index, feedback }) => {
   const [showMore, setShowMore] = useState(false);
- 
+
   const { user } = useContext(AuthContext);
 
   const toggleShowMore = () => {
@@ -27,7 +26,6 @@ export const Dentist = ({ item, index, feedback}) => {
   const handleOpen = (item) => {
     setOpenCart({ open: true, dentist: item.tags });
   };
-  
 
   return (
     <Box
@@ -81,15 +79,28 @@ export const Dentist = ({ item, index, feedback}) => {
           >
             Aviability
           </Button>
-
-          <Button
-            background="yellow.200"
-            variant="outline"
-            onClick={toggleShowMore}
-          >
-            {showMore ? "Hidden" : "Write a feedback"}
-          </Button>
+          <>
+          {user ? (
+            <Button
+              background="yellow.200"
+              variant="outline"
+              onClick={toggleShowMore}
+            >
+              {showMore ? "Hidden" : "Write a feedback"}
+            </Button>
+          ) : (
+            <Button
+              background="yellow.200"
+              variant="outline"
+              as={Link}
+              to="/login"
+            > 
+              Write a feedback
+            </Button>
+          )}
+          </>
         </Stack>
+        <Divider orientation="horizontal" />
       </Stack>
     </Box>
   );
