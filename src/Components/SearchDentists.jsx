@@ -9,8 +9,8 @@ const SearchDentists = ({ placeholder, control, setDentists }) => {
     const filterArray = control.filter((item) =>
       item.tags.name.toLowerCase().includes(input.toLowerCase())
     );
-    console.log(filterArray);
-    setDentists(filterArray);
+    console.log(filterArray)
+    setDentists(filterArray)
   };
 
   return (
@@ -20,16 +20,16 @@ const SearchDentists = ({ placeholder, control, setDentists }) => {
           flex="1"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          borderRadius="3px"
+          borderRadius="5px"
           bg="white"
-          height="10vh"
-          width="40rem"
+          height="8vh"
+          width="45rem"
           type="text"
           placeholder={placeholder}
         />
       </InputGroup>
 
-      <SearchIcon  boxSize={10} margin={3} display="flex" justifyContent="" onClick={handleClick}>
+      <SearchIcon boxSize={10} margin={3} display="flex" justifyContent="" onClick={handleClick}>
         search
       </SearchIcon>
     </Box>

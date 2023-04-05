@@ -1,7 +1,7 @@
 import { Flex, Image, Box } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "@chakra-ui/react";
-import Calendar from "./Calendar";
+// import Calendar from "./Calendar";
 // import { Link } from "react-router-dom";
 import banner from "../banner.png";
 import Navbar from "../Components/Navbar";
@@ -9,11 +9,19 @@ import SearchDentists from "../Components/SearchDentists";
 import { Dentist } from "../Components/Dentist";
 import { db } from "../fbConfig";
 import { collection, getDocs } from "firebase/firestore";
+import { AuthContext } from "../Contexts/AuthContext";
+import { where } from "firebase/firestore";
+
 
 const Home = () => {
+  const { user } = useContext(AuthContext)
+  console.log(user)
+
   const [dentists, setDentists] = useState([]);
   const [control, setControl] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState([]);
+  const [favorite, setFavorite] = useState([]);
 
   const getApiData = async () => {
     const testUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node(around:3000,52.516275,13.377704)[amenity=dentist];out;`;
@@ -24,14 +32,37 @@ const Home = () => {
         setLoading(false);
         setControl(data.elements);
         setDentists(data.elements);
-        // console.log(data.elements);
+        console.log(data.elements);
       })
       .catch((error) => {
         console.error(error);
         setLoading(false);
       });
   };
-  const [feedback, setFeedback] = useState([]);
+
+  const getFavorite = async () => {
+    const querySnapshot = await getDocs(collection(db, "favorite"),where("userId", "==", user.uid));
+    const favoriteArray = [];
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      const singleFavorite = {
+        id: doc.id,
+        ...doc.data(),
+      };
+
+      favoriteArray.push(singleFavorite);
+
+      // console.log(doc.id, " => ", doc.data());
+    });
+    setFavorite(favoriteArray);
+    console.log('favorites',favoriteArray)
+    
+  };
+
+  //rewrite the snapschot, for to be live update..
+  //fallow the steps 
+  //
+
   const getFeedback = async () => {
     const querySnapshot = await getDocs(collection(db, "feedback"));
     const feedbackArray = [];
@@ -49,9 +80,24 @@ const Home = () => {
     setFeedback(feedbackArray);
   };
 
+  // const isFavorite = (userArrayofFav, dentistId) => {
+  //   userArrayofFav.map((fav) => {
+  //     if (fav.id === dentistId) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   });
+  // };
   useEffect(() => {
     getFeedback();
   }, []);
+
+  useEffect(() => {
+    if(user){
+      getFavorite()
+    }
+  }, [user]);  
 
   useEffect(() => {
     setLoading(true);
@@ -97,7 +143,6 @@ const Home = () => {
           justifyContent="center"
           alignItems="center"
           display="flex"
-
         >
           {dentists.map((item, index) => (
             <Dentist
@@ -105,6 +150,7 @@ const Home = () => {
               item={item}
               index={index}
               feedback={feedback}
+              favorite={favorite}
             />
           ))}
         </Flex>

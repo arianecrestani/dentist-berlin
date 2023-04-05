@@ -17,12 +17,14 @@ import { Comment } from "./Comment";
 import { Collapse } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { useContext } from "react";
+import { Favorite } from "./Favorite";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../fbConfig";
 import LoginForm from "../Pages/LoginForm";
 
-export const Dentist = ({ item, index, feedback }) => {
+export const Dentist = ({ item, index, feedback, favorite }) => {
   const [showMore, setShowMore] = useState(false);
+  const [dentistFeedback, setDentistFeedback] = useState([]);
 
   const { user } = useContext(AuthContext);
 
@@ -47,21 +49,21 @@ export const Dentist = ({ item, index, feedback }) => {
       boxShadow="sm"
       bg="white"
       p="14"
-      m='4'
-
+      m="4"
     >
-      <Flex  justifyContent="center" p={4} >
+      <Flex justifyContent="center" p={4}>
         <Avatar name={item.tags.name} src="https://bit.ly/broken-link" />
         <Box ml={3}>
           <Heading as="h2" size="md">
             {item.tags.name}
           </Heading>
           <Text fontSize="sm" color="gray.500">
-            {item.tags["addr:street"]} {item.tags["addr:housenumber"]},{" "}
+            {item.tags["addr:street"]} {item.tags["addr:housenumber"]},
             {item.tags["addr:city"]} {item.tags["addr:postcode"]}
           </Text>
         </Box>
       </Flex>
+      <Favorite item={item} favorite={favorite} />
       <Divider />
       <Box p={4}>
         <Collapse in={showMore}>
@@ -77,7 +79,14 @@ export const Dentist = ({ item, index, feedback }) => {
           onClose={() => setOpenCart({ open: false, dentist: {} })}
           dentist={openCart.dentist}
         />
-        <Stack direction="row" spacing={4} align="center" justifyContent='center'>
+          
+        <Stack
+          direction="row"
+          spacing={4}
+          align="center"
+          justifyContent="center"
+        >
+       
           <Button
             onClick={() => handleOpen(item)}
             background="yellow.200"
