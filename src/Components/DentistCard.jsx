@@ -20,7 +20,7 @@ import { useContext } from "react";
 import { Favorite } from "./Favorite";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../fbConfig";
-import LoginForm from "../Pages/LoginForm";
+
 
 
 export const Dentist = ({ item, index, feedback, favorite }) => {
@@ -51,7 +51,7 @@ export const Dentist = ({ item, index, feedback, favorite }) => {
       bg="white"
       p="14"
       m="4"
-      bg="#EEFBFA"
+      // bg="#EEFBFA"
       
     >
      <Flex justifyContent="center" p={4}>

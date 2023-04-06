@@ -12,21 +12,26 @@ import { db } from "../fbConfig";
 import { Button } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { IconButton } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 export const Favorite = ({ item, favorite }) => {
+  // const element = <FontAwesomeIcon icon={faHeart} />;
   const [isFavorite, setIsFavorite] = useState(false);
 
   const { user } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const name = item.tags.name
+
+    const name = item.tags.name;
     const city = item.tags["addr:city"];
     const userID = user.uid;
     const street = item.tags["addr:street"];
     const dentistID = item.id;
-    
 
     const likesRef = collection(db, "favorite");
     const likesQuery = query(
@@ -39,7 +44,7 @@ export const Favorite = ({ item, favorite }) => {
     const snapshot = await getDocs(likesQuery);
     const emptyArray = [];
     snapshot.forEach((item) => emptyArray.push(item.data()));
-      console.log(emptyArray)
+    console.log(emptyArray);
     if (emptyArray.length === 0) {
       const newFavorite = {
         name: name,
@@ -47,7 +52,6 @@ export const Favorite = ({ item, favorite }) => {
         userID: userID,
         street: street,
         dentistID: dentistID,
-       
       };
 
       try {
@@ -77,8 +81,12 @@ export const Favorite = ({ item, favorite }) => {
   }, [favorite, item]);
 
   return (
-    <Button colorScheme={isFavorite ? "red" : "green"} onClick={handleSubmit}>
-      {isFavorite ? "Remove from favorites" : "Add to favorites"}
-    </Button>
+    <div>
+   
+     {isFavorite ? <FontAwesomeIcon onClick={handleSubmit} icon={faHeart} /> : <FontAwesomeIcon onClick={handleSubmit} icon={faHeart} style={{color: "#ff0a0a",}} />} 
+  
+    </div>
   );
 };
+
+
