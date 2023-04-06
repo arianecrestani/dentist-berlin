@@ -20,11 +20,13 @@ export const Favorite = ({ item, favorite }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
+    const name = item.tags.name
     const city = item.tags["addr:city"];
     const userID = user.uid;
     const street = item.tags["addr:street"];
     const dentistID = item.id;
+    
 
     const likesRef = collection(db, "favorite");
     const likesQuery = query(
@@ -40,10 +42,12 @@ export const Favorite = ({ item, favorite }) => {
       console.log(emptyArray)
     if (emptyArray.length === 0) {
       const newFavorite = {
+        name: name,
         city: city,
         userID: userID,
         street: street,
         dentistID: dentistID,
+       
       };
 
       try {
@@ -61,7 +65,7 @@ export const Favorite = ({ item, favorite }) => {
 
         setIsFavorite(false);
         alert(
-          `Removed from favorites: ${city}, ${userID}, ${street}, ${dentistID}`
+          `Removed from favorites: ${name}, ${city}, ${userID}, ${street}, ${dentistID}`
         );
       });
     }

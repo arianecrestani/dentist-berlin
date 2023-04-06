@@ -21,7 +21,7 @@ import { Favorite } from "./Favorite";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../fbConfig";
 import LoginForm from "../Pages/LoginForm";
-import { DentistInfo } from "./DentistInfo";
+
 
 export const Dentist = ({ item, index, feedback, favorite }) => {
   const [showMore, setShowMore] = useState(false);
@@ -52,7 +52,18 @@ export const Dentist = ({ item, index, feedback, favorite }) => {
       p="14"
       m="4"
     >
-     <DentistInfo item={item}/>
+     <Flex justifyContent="center" p={4}>
+        <Avatar name={item.tags.name} src="https://bit.ly/broken-link" />
+        <Box ml={3}>
+          <Heading as="h2" size="md">
+            {item.tags.name}
+          </Heading>
+          <Text fontSize="sm" color="gray.500">
+            {item.tags["addr:street"]} {item.tags["addr:housenumber"]},
+            {item.tags["addr:city"]} {item.tags["addr:postcode"]}
+          </Text>
+        </Box>
+      </Flex>
       <Favorite item={item} favorite={favorite} />
       <Divider />
       <Box p={4}>

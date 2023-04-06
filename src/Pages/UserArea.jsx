@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../fbConfig";
 import { AuthContext } from "../Contexts/AuthContext";
+import { Avatar, Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 export const UserArea = () => {
   const { user } = useContext(AuthContext);
@@ -27,7 +28,28 @@ export const UserArea = () => {
     <div>
       <ul>
         {favoriteShows.map((favorite) => (
-          <li key={favorite.dentistID}>{favorite.city}</li>
+          <div key={favorite.dentistID}>
+            <Box
+              maxW="sm"
+              borderWidth="1px"
+              borderRadius="lg"
+              overflow="hidden"
+              m="2"
+              p="4"
+            >
+              <Flex align="center">
+                <Avatar size="md" name={favorite.name} mr="4" />
+                <Box>
+                  <Heading as="h3" size="md">
+                    {favorite.name}
+                  </Heading>
+                  <Text fontSize="sm">
+                    {favorite.city}, {favorite.street}
+                  </Text>
+                </Box>
+              </Flex>
+            </Box>
+          </div>
         ))}
       </ul>
     </div>
