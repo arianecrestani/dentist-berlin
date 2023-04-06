@@ -18,7 +18,7 @@ const App = () => {
             <Route path="/login" element={<LoginForm />}></Route>
             <Route path="/register" element={<Register />}></Route>
             {/* <Route path="/calendar" element={<Calendar />}></Route> */}
-            <Route path="/userArea" element={<UserArea />}></Route>
+            <Route path="/user" element={<UserArea />}></Route>
           </Routes>
         </AuthProvider>
       </ChakraProvider>

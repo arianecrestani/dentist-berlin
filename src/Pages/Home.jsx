@@ -1,8 +1,6 @@
 import { Flex, Image, Box } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "@chakra-ui/react";
-// import Calendar from "./Calendar";
-// import { Link } from "react-router-dom";
 import banner from "../banner.png";
 import Navbar from "../Components/Navbar";
 import SearchDentists from "../Components/SearchDentists";
@@ -44,51 +42,34 @@ const Home = () => {
     const querySnapshot = await getDocs(collection(db, "favorite"),where("userId", "==", user.uid));
     const favoriteArray = [];
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
       const singleFavorite = {
         id: doc.id,
         ...doc.data(),
       };
-
       favoriteArray.push(singleFavorite);
 
-      // console.log(doc.id, " => ", doc.data());
     });
     setFavorite(favoriteArray);
     console.log('favorites',favoriteArray)
     
   };
 
-  //rewrite the snapschot, for to be live update..
-  //fallow the steps 
-  //
 
   const getFeedback = async () => {
     const querySnapshot = await getDocs(collection(db, "feedback"));
     const feedbackArray = [];
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
+
       const singleFeedback = {
         id: doc.id,
         ...doc.data(),
       };
 
       feedbackArray.push(singleFeedback);
-
-      // console.log(doc.id, " => ", doc.data());
     });
     setFeedback(feedbackArray);
   };
 
-  // const isFavorite = (userArrayofFav, dentistId) => {
-  //   userArrayofFav.map((fav) => {
-  //     if (fav.id === dentistId) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   });
-  // };
   useEffect(() => {
     getFeedback();
   }, []);

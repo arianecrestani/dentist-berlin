@@ -11,15 +11,11 @@ import {
 import { db } from "../fbConfig";
 import { Button } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
-// import { AiFillHeart } from "react-icons/ai";
-// import { Icon } from "@chakra-ui/react";
-// import { collection } from "firebase/firestore";
-// import { db } from "../fbConfig";
-
+import { Link, useHistory } from "react-router-dom";
 
 export const Favorite = ({ item, favorite }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  
+
   const { user } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
@@ -30,23 +26,19 @@ export const Favorite = ({ item, favorite }) => {
     const street = item.tags["addr:street"];
     const dentistID = item.id;
 
-    // const likesRef = collection(db, "likes");
-    // const snapshot = await getDocs(likesRef);
+    const likesRef = collection(db, "favorite");
+    const likesQuery = query(
+      likesRef,
 
-    // const likedFavorites = snapshot.docs.some((doc) => {
-    //   const data = doc.data();
-    //   return data.userID === userID && data.dentistID === dentistID;
-    // });
+      where("userID", "==", userID),
+      where("dentistID", "==", dentistID)
+    );
 
-    // const likesRef = collection(db, "favorite");
-    // const likesQuery = query(
-    //   likesRef,
-    //   where("userID", "==", userID),
-    //   where("dentistID", "==", dentistID)
-    // );
-
-
-    if (!isFavorite) {
+    const snapshot = await getDocs(likesQuery);
+    const emptyArray = [];
+    snapshot.forEach((item) => emptyArray.push(item.data()));
+      console.log(emptyArray)
+    if (emptyArray.length === 0) {
       const newFavorite = {
         city: city,
         userID: userID,
@@ -56,7 +48,7 @@ export const Favorite = ({ item, favorite }) => {
 
       try {
         const docRef = await addDoc(collection(db, "favorite"), newFavorite);
-        alert(`Added to favorites: ${city}, ${userID}, ${street}, ${dentistID}`)
+        setIsFavorite(true);
 
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
@@ -64,30 +56,25 @@ export const Favorite = ({ item, favorite }) => {
         alert("try again");
       }
     } else {
-      const handleRemove = async (documentId) => {
-        try {
-          await deleteDoc(doc(db, "favorite", documentId));
-          console.log("Document successfully deleted!");
-        } catch (e) {
-          console.error("Error removing document: ", e);
-        }
-      };
+      snapshot.forEach((doc) => {
+        deleteDoc(doc.ref);
+
+        setIsFavorite(false);
+        alert(
+          `Removed from favorites: ${city}, ${userID}, ${street}, ${dentistID}`
+        );
+      });
     }
   };
-  useEffect(()=>{
-    const favoriteCheck = favorite.some((fv)=> fv.dentistID == item.id);
-    setIsFavorite(favoriteCheck)
-  },[favorite])
+
+  useEffect(() => {
+    const favoriteCheck = favorite.some((fv) => fv.dentistID === item.id);
+    setIsFavorite(favoriteCheck);
+  }, [favorite, item]);
 
   return (
-    <div>
-      <Button
-        // leftIcon={<Icon as={AiFillHeart} />}
-        onClick={handleSubmit}
-      ></Button>
-      Add to favorites
-      {isFavorite ? (<p>isFavorite</p>):(<p>not favorite</p>)}
-      
-    </div>
+    <Button colorScheme={isFavorite ? "red" : "green"} onClick={handleSubmit}>
+      {isFavorite ? "Remove from favorites" : "Add to favorites"}
+    </Button>
   );
 };

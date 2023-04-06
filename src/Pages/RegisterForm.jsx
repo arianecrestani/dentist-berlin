@@ -2,8 +2,7 @@ import React from "react";
 import PasswordInputs from "../Components/PasswordInputs";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import Navbar from "../Components/Navbar";
-import { useContext } from "react";
-import { AuthContext } from "../Contexts/AuthContext";
+
 
 const RegisterForm = () => {
 
