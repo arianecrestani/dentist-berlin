@@ -118,7 +118,7 @@ const Home = () => {
       </div>
       {loading && <Spinner color="red.500" />}
 
-      <Box bg="#EEFBFA">
+      <Box>
         <Flex
           flexDirection="column"
           justifyContent="center"
