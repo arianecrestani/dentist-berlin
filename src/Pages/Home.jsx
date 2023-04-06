@@ -4,7 +4,7 @@ import { Spinner } from "@chakra-ui/react";
 import banner from "../banner.png";
 import Navbar from "../Components/Navbar";
 import SearchDentists from "../Components/SearchDentists";
-import { Dentist } from "../Components/Dentist";
+import { Dentist } from "../Components/DentistCard";
 import { db } from "../fbConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { AuthContext } from "../Contexts/AuthContext";

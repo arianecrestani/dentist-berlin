@@ -25,7 +25,6 @@ export const UserArea = () => {
 
   return (
     <div>
-      <h1>Favorite Shows:</h1>
       <ul>
         {favoriteShows.map((favorite) => (
           <li key={favorite.dentistID}>{favorite.city}</li>

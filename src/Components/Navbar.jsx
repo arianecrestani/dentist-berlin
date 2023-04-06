@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Box, HStack, Flex, Text, Spacer } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { useContext } from "react";
-import { UserArea } from "../Pages/UserArea";
+
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
