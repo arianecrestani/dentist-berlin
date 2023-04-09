@@ -86,7 +86,8 @@ export const Favorite = ({ item, favorite }) => {
         <>
         {!isFavorite ? (
           <FontAwesomeIcon
-            style={{ color: "#FFC0CB" }}
+
+            style={{ color: "#FFC0CB"}}
             onClick={handleSubmit}
             icon={faHeart}
           />

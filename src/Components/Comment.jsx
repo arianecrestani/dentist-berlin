@@ -10,7 +10,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../fbConfig";
 
 // import { Dentist } from "./Dentist";
@@ -20,38 +20,41 @@ export const Comment = ({ feedback, item }) => {
   const [inputValue, setInputValue] = useState("");
   const [feedbackAuthor, setFeedbackAuthor] = useState(null);
   const [dentistFeedback, setDentistFeedback] = useState([]);
+  // const [isComment, setIsComment] = useEffect([])
   // const [mensage, setMenssage] = useState([])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, docId) => {
     e.preventDefault();
     const date = new Date().toDateString();
 
-    const newMessage = {
-      author: user.email,
-      text: inputValue,
-      date: date,
-      dentist: item.id,
-    };
-
     if (inputValue === "") {
-      alert("please fill out");
-    } else {
-      try {
-        const authorName = newMessage.author;
-        const textComment = newMessage.text;
-        const feedbackDate = newMessage.date;
+      const newMessage = {
+        author: user.email,
+        text: inputValue,
+        date: date,
+        dentist: item.id,
+      };
+      const authorName = newMessage.author;
+      const textComment = newMessage.text;
+      const feedbackDate = newMessage.date;
 
-        const docRef = await addDoc(collection(db, "feedback"), newMessage);
-        setFeedbackAuthor(`${authorName} ${textComment} ${feedbackDate}`);
-        setInputValue("");
+      const docRef = await addDoc(collection(db, "feedback"), newMessage);
+      setFeedbackAuthor(`${authorName} ${textComment} ${feedbackDate}`);
+      setInputValue("");
 
-        console.log("Document written with ID: ", docRef.id);
-      } catch (e) {
-        console.error("Error adding document: ", e);
-        alert("try again");
-      }
+      console.log("Document written with ID: ", docRef.id);
     }
-    console.log(newMessage);
+    handleDelete(docId);
+  };
+
+  const handleDelete = async (docId) => {
+    try {
+      await deleteDoc(doc(db, "feedback", docId));
+      console.log("Document deleted with ID: ", docId);
+    } catch (e) {
+      console.error("Error deleting document: ", e);
+      alert("try again");
+    }
   };
 
   useEffect(() => {
@@ -76,6 +79,14 @@ export const Comment = ({ feedback, item }) => {
                 <Box ml="4">
                   <Text fontWeight="bold">{dentist.author}</Text>
                   <Text fontSize="md">{comment}</Text>
+                  <Button
+                    colorScheme="red"
+                    size="sm"
+                    mt="2"
+                    onClick={() => handleDelete(dentist.id)}
+                  >
+                    Delete
+                  </Button>
                 </Box>
               </Flex>
             );
