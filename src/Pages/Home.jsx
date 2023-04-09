@@ -71,6 +71,7 @@ const Home = () => {
   };
 
   useEffect(() => {
+    
     getFeedback();
   }, []);
 

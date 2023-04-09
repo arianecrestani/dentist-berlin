@@ -9,18 +9,14 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../fbConfig";
-import { Button } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { IconButton } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "@chakra-ui/react";
 
 export const Favorite = ({ item, favorite }) => {
-  // const element = <FontAwesomeIcon icon={faHeart} />;
   const [isFavorite, setIsFavorite] = useState(false);
+
 
   const { user } = useContext(AuthContext);
 
@@ -57,6 +53,7 @@ export const Favorite = ({ item, favorite }) => {
       try {
         const docRef = await addDoc(collection(db, "favorite"), newFavorite);
         setIsFavorite(true);
+        alert("add to favorite");
 
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
@@ -72,8 +69,11 @@ export const Favorite = ({ item, favorite }) => {
           `Removed from favorites: ${name}, ${city}, ${userID}, ${street}, ${dentistID}`
         );
       });
+
     }
   };
+
+
 
   useEffect(() => {
     const favoriteCheck = favorite.some((fv) => fv.dentistID === item.id);
@@ -81,12 +81,26 @@ export const Favorite = ({ item, favorite }) => {
   }, [favorite, item]);
 
   return (
-    <div>
-   
-     {isFavorite ? <FontAwesomeIcon onClick={handleSubmit} icon={faHeart} /> : <FontAwesomeIcon onClick={handleSubmit} icon={faHeart} style={{color: "#ff0a0a",}} />} 
-  
-    </div>
+    <>
+      {user ? (
+        <>
+        {!isFavorite ? (
+          <FontAwesomeIcon
+            style={{ color: "#FFC0CB" }}
+            onClick={handleSubmit}
+            icon={faHeart}
+          />
+        ) : (
+          <FontAwesomeIcon
+            onClick={handleSubmit}
+            icon={faHeart}
+            style={{ color: "blue" }}
+          />
+        )}
+        </>
+      ) : (
+        <span style={{ display: "none" }}>You need to be logged in to favorite</span>
+      )}
+    </>
   );
 };
-
-
