@@ -18,7 +18,6 @@ import { db } from "../fbConfig";
 export const Comment = ({ feedback, item }) => {
   const { user } = useContext(AuthContext);
   const [inputValue, setInputValue] = useState("");
-  const [feedbackAuthor, setFeedbackAuthor] = useState(null);
   const [dentistFeedback, setDentistFeedback] = useState([]);
 
   // const [mensage, setMenssage] = useState([])
@@ -43,9 +42,13 @@ export const Comment = ({ feedback, item }) => {
         const feedbackDate = newMessage.date;
 
         const docRef = await addDoc(collection(db, "feedback"), newMessage);
-        setFeedbackAuthor(`${authorName} ${textComment} ${feedbackDate}`);
+        setDentistFeedback([...dentistFeedback, {
+          id: docRef.id,
+          author: authorName,
+          text: textComment,
+          date: feedbackDate
+        }])
         setInputValue("");
-        // setIsUser()
 
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
@@ -53,7 +56,7 @@ export const Comment = ({ feedback, item }) => {
         alert("try again");
       }
     }
-    console.log(newMessage);
+
   };
 
   const handleDelete = async (docId) => {
@@ -83,8 +86,9 @@ export const Comment = ({ feedback, item }) => {
   return (
     <div>
       <Stack>
-        <Box borderWidth="1px" borderRadius="lg" p="4">
-          {dentistFeedback && user &&
+        <Box borderWidth="1px" borderRadius="lg" p="8">
+          {dentistFeedback &&
+            user &&
             dentistFeedback.map((feedback) => {
               const comment = `${feedback.author} ${feedback.text} ${feedback.date}`;
 
@@ -101,7 +105,7 @@ export const Comment = ({ feedback, item }) => {
                     name={feedback.author}
                     src="https://bit.ly/broken-link"
                   />
-                  <Box ml="4">
+                  <Box ml="8">
                     <Text fontWeight="bold">{feedback.author}</Text>
                     <Text fontSize="md">{comment}</Text>
                     {canDelete && user && (
@@ -121,11 +125,11 @@ export const Comment = ({ feedback, item }) => {
         </Box>
       </Stack>
       <Box>
-        <Box borderWidth="2px" borderRadius="lg" p="20">
-          <Text fontSize="xl" fontWeight="bold" mb="2">
+        <Box borderWidth="2px" borderRadius="lg" p="24">
+          <Text fontSize="xl" fontWeight="bold" mb="6">
             Feedback
           </Text>
-          <Stack spacing="4">
+          <Stack spacing="8">
             <Flex justifyContent="center">
               <Input
                 value={inputValue}
@@ -134,7 +138,11 @@ export const Comment = ({ feedback, item }) => {
                 placeholder="Leave a comment"
               />
 
-              <Button colorScheme="blue" type="submit" onClick={handleSubmit}>
+              <Button
+                colorScheme="blue"
+                type="submit"
+                onClick={handleSubmit}
+              >
                 Add
               </Button>
             </Flex>
