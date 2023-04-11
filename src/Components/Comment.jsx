@@ -20,7 +20,7 @@ export const Comment = ({ feedback, item }) => {
   const [inputValue, setInputValue] = useState("");
   const [feedbackAuthor, setFeedbackAuthor] = useState(null);
   const [dentistFeedback, setDentistFeedback] = useState([]);
-  // const [isUser, setIsUser] = useState(true);
+
   // const [mensage, setMenssage] = useState([])
 
   const handleSubmit = async (e) => {
@@ -63,9 +63,8 @@ export const Comment = ({ feedback, item }) => {
       }
       await deleteDoc(doc(db, "feedback", docId));
       setDentistFeedback(
-        dentistFeedback.filter((feedback) => feedback.id === docId)
+        dentistFeedback.filter((feedback) => feedback.id !== docId)
       );
-    
 
       // setIsUser(true)
     } catch (e) {
@@ -85,33 +84,40 @@ export const Comment = ({ feedback, item }) => {
     <div>
       <Stack>
         <Box borderWidth="1px" borderRadius="lg" p="4">
-          {dentistFeedback.map((feedback) => {
-            const comment = `${feedback.author} ${feedback.text} ${feedback.date}`;
-            const canDelete = feedback.author === user.email;
+          {dentistFeedback && user &&
+            dentistFeedback.map((feedback) => {
+              const comment = `${feedback.author} ${feedback.text} ${feedback.date}`;
 
-            return (
-              <Flex key={feedback.id} borderWidth="1px" borderRadius="lg" p="4">
-                <Avatar
-                  name={feedback.author}
-                  src="https://bit.ly/broken-link"
-                />
-                <Box ml="4">
-                  <Text fontWeight="bold">{feedback.author}</Text>
-                  <Text fontSize="md">{comment}</Text>
-                  {canDelete && (
-                    <Button
-                      colorScheme="red"
-                      size="sm"
-                      mt="2"
-                      onClick={() => handleDelete(feedback.id)}
-                    >
-                      Delete
-                    </Button>
-                  )}
-                </Box>
-              </Flex>
-            );
-          })}
+              const canDelete = feedback.author === user.email;
+
+              return (
+                <Flex
+                  key={feedback.id}
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  p="4"
+                >
+                  <Avatar
+                    name={feedback.author}
+                    src="https://bit.ly/broken-link"
+                  />
+                  <Box ml="4">
+                    <Text fontWeight="bold">{feedback.author}</Text>
+                    <Text fontSize="md">{comment}</Text>
+                    {canDelete && user && (
+                      <Button
+                        colorScheme="red"
+                        size="sm"
+                        mt="2"
+                        onClick={() => handleDelete(feedback.id)}
+                      >
+                        Delete
+                      </Button>
+                    )}
+                  </Box>
+                </Flex>
+              );
+            })}
         </Box>
       </Stack>
       <Box>
