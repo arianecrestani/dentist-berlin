@@ -10,7 +10,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc, docId } from "firebase/firestore";
 import { db } from "../fbConfig";
 
 // import { Dentist } from "./Dentist";
@@ -20,6 +20,7 @@ export const Comment = ({ feedback, item }) => {
   const [inputValue, setInputValue] = useState("");
   const [feedbackAuthor, setFeedbackAuthor] = useState(null);
   const [dentistFeedback, setDentistFeedback] = useState([]);
+  // const [isUser, setIsUser] = useState(true);
   // const [mensage, setMenssage] = useState([])
 
   const handleSubmit = async (e) => {
@@ -44,6 +45,7 @@ export const Comment = ({ feedback, item }) => {
         const docRef = await addDoc(collection(db, "feedback"), newMessage);
         setFeedbackAuthor(`${authorName} ${textComment} ${feedbackDate}`);
         setInputValue("");
+        // setIsUser()
 
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
@@ -52,6 +54,24 @@ export const Comment = ({ feedback, item }) => {
       }
     }
     console.log(newMessage);
+  };
+
+  const handleDelete = async (docId) => {
+    try {
+      if (!docId) {
+        throw new Error("docId is undefined");
+      }
+      await deleteDoc(doc(db, "feedback", docId));
+      setDentistFeedback(
+        dentistFeedback.filter((feedback) => feedback.id === docId)
+      );
+    
+
+      // setIsUser(true)
+    } catch (e) {
+      console.error("Error deleting document: ", e);
+      alert("try again");
+    }
   };
 
   useEffect(() => {
@@ -65,17 +85,29 @@ export const Comment = ({ feedback, item }) => {
     <div>
       <Stack>
         <Box borderWidth="1px" borderRadius="lg" p="4">
-          {dentistFeedback.map((dentist) => {
-            const comment = `${dentist.author} ${dentist.text} ${dentist.date}`;
+          {dentistFeedback.map((feedback) => {
+            const comment = `${feedback.author} ${feedback.text} ${feedback.date}`;
+            const canDelete = feedback.author === user.email;
+
             return (
-              <Flex key={dentist.id} borderWidth="1px" borderRadius="lg" p="4">
+              <Flex key={feedback.id} borderWidth="1px" borderRadius="lg" p="4">
                 <Avatar
-                  name={dentist.author}
+                  name={feedback.author}
                   src="https://bit.ly/broken-link"
                 />
                 <Box ml="4">
-                  <Text fontWeight="bold">{dentist.author}</Text>
+                  <Text fontWeight="bold">{feedback.author}</Text>
                   <Text fontSize="md">{comment}</Text>
+                  {canDelete && (
+                    <Button
+                      colorScheme="red"
+                      size="sm"
+                      mt="2"
+                      onClick={() => handleDelete(feedback.id)}
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </Box>
               </Flex>
             );
