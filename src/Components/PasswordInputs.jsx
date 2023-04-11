@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useState, useContext } from "react";
-
+import { Link } from "react-router-dom";
 import {
+  Text,
   Input,
   Flex,
   FormControl,
@@ -17,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 const PasswordInputs = ({ functionType }) => {
   const { createNewUser, logIn, user } = useContext(AuthContext);
   const navigate = useNavigate();
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -52,51 +53,40 @@ const PasswordInputs = ({ functionType }) => {
   };
   return (
     <>
-      <Flex direction="column" align="center">
-        <Box
-          backgroundColor="gray.50"
-          borderRadius="md"
-          padding={4}
-          boxShadow="lg"
-          p={12}
-          m={20}
+      <Box>
+        <FormControl onSubmit={handleSubmit}>
+          <FormLabel>Email</FormLabel>
+          <Input
+            onChange={handleEmailChange}
+            value={email}
+            type="email"
+            style={inputStyle}
+          />
+          <FormHelperText>Keep it very short and sweet!</FormHelperText>
+          <FormErrorMessage>Your First name is invalid</FormErrorMessage>
+        </FormControl>
+      </Box>
+      <Box>
+        <FormControl>
+          <FormLabel>Password</FormLabel>
+          <Input
+            onChange={(event) => setPassword(event.target.value)}
+            value={password}
+            type="password"
+            style={inputStyle}
+          />
+          <FormHelperText>We'll never share your password.</FormHelperText>
+        </FormControl>
+        <Button
+          onClick={handleSubmit}
+          type="submit"
+          colorScheme="blue"
+          mt={2}
+          width="full"
         >
-          <Box>
-            <FormControl onSubmit={handleSubmit}>
-              <FormLabel>Email</FormLabel>
-              <Input
-                onChange={handleEmailChange}
-                value={email}
-                type="email"
-                style={inputStyle}
-              />
-              <FormHelperText>Keep it very short and sweet!</FormHelperText>
-              <FormErrorMessage>Your First name is invalid</FormErrorMessage>
-            </FormControl>
-          </Box>
-          <Box>
-            <FormControl>
-              <FormLabel>Password</FormLabel>
-              <Input
-                onChange={(event) => setPassword(event.target.value)}
-                value={password}
-                type="password"
-                style={inputStyle}
-              />
-              <FormHelperText>We'll never share your password.</FormHelperText>
-            </FormControl>
-            <Button
-              onClick={handleSubmit}
-              type="submit"
-              colorScheme="blue"
-              mt={2}
-              width="full"
-            >
-              Login
-            </Button>
-          </Box>
-        </Box>
-      </Flex>
+          Login
+        </Button>
+      </Box>
     </>
   );
 };
