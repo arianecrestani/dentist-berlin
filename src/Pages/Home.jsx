@@ -118,7 +118,7 @@ const Home = () => {
         </div>
       </div>
       {loading && <Spinner color="red.500" />}
-
+          
       <Box>
         <Flex
           flexDirection="column"

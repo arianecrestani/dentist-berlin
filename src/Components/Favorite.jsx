@@ -12,11 +12,9 @@ import { db } from "../fbConfig";
 import { AuthContext } from "../Contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "@chakra-ui/react";
 
 export const Favorite = ({ item, favorite }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-
 
   const { user } = useContext(AuthContext);
 
@@ -69,37 +67,36 @@ export const Favorite = ({ item, favorite }) => {
           `Removed from favorites: ${name}, ${city}, ${userID}, ${street}, ${dentistID}`
         );
       });
-
     }
   };
-
-
 
   useEffect(() => {
     const favoriteCheck = favorite.some((fv) => fv.dentistID === item.id);
     setIsFavorite(favoriteCheck);
-  }, [favorite, item]);
+  }, [favorite]);
 
   return (
     <>
       {user ? (
         <>
-        {!isFavorite ? (
-          <FontAwesomeIcon
-            style={{ color: "#FFC0CB" }}
-            onClick={handleSubmit}
-            icon={faHeart}
-          />
-        ) : (
-          <FontAwesomeIcon
-            onClick={handleSubmit}
-            icon={faHeart}
-            style={{ color: "blue" }}
-          />
-        )}
+          {!isFavorite ? (
+            <FontAwesomeIcon
+              style={{ color: "#FFC0CB" }}
+              onClick={handleSubmit}
+              icon={faHeart}
+            />
+          ) : (
+            <FontAwesomeIcon
+              onClick={handleSubmit}
+              icon={faHeart}
+              style={{ color: "blue" }}
+            />
+          )}
         </>
       ) : (
-        <span style={{ display: "none" }}>You need to be logged in to favorite</span>
+        <span style={{ display: "none" }}>
+          You need to be logged in to favorite
+        </span>
       )}
     </>
   );

@@ -21,11 +21,8 @@ import { Favorite } from "./Favorite";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../fbConfig";
 
-
-
 export const Dentist = ({ item, index, feedback, favorite }) => {
   const [showMore, setShowMore] = useState(false);
-  const [dentistFeedback, setDentistFeedback] = useState([]);
 
   const { user } = useContext(AuthContext);
 
@@ -52,9 +49,8 @@ export const Dentist = ({ item, index, feedback, favorite }) => {
       p="14"
       m="4"
       // bg="#EEFBFA"
-      
     >
-     <Flex justifyContent="center" p={4}>
+      <Flex justifyContent="center" p={4}>
         <Avatar name={item.tags.name} src="https://bit.ly/broken-link" />
         <Box ml={3}>
           <Heading as="h2" size="md">
@@ -82,14 +78,13 @@ export const Dentist = ({ item, index, feedback, favorite }) => {
           onClose={() => setOpenCart({ open: false, dentist: {} })}
           dentist={openCart.dentist}
         />
-          
+
         <Stack
           direction="row"
           spacing={4}
           align="center"
           justifyContent="center"
         >
-       
           <Button
             onClick={() => handleOpen(item)}
             background="yellow.200"

@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 const PasswordInputs = ({ functionType }) => {
   const { createNewUser, logIn, user } = useContext(AuthContext);
   const navigate = useNavigate();
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

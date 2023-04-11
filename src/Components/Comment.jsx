@@ -13,14 +13,12 @@ import { AuthContext } from "../Contexts/AuthContext";
 import { collection, addDoc, deleteDoc, doc, docId } from "firebase/firestore";
 import { db } from "../fbConfig";
 
-// import { Dentist } from "./Dentist";
 
 export const Comment = ({ feedback, item }) => {
   const { user } = useContext(AuthContext);
   const [inputValue, setInputValue] = useState("");
   const [dentistFeedback, setDentistFeedback] = useState([]);
 
-  // const [mensage, setMenssage] = useState([])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
