@@ -5,6 +5,7 @@ import LoginForm from "./Pages/LoginForm";
 import Register from "./Pages/RegisterForm";
 import { ChakraProvider } from "@chakra-ui/react";
 import { AuthProvider } from "./Contexts/AuthContext";
+import { ResetPassword } from "./Pages/ResetPassword";
 
 
 
@@ -19,6 +20,7 @@ const App = () => {
             <Route path="/register" element={<Register />}></Route>
             {/* <Route path="/calendar" element={<Calendar />}></Route> */}
             <Route path="/user" element={<UserArea />}></Route>
+            <Route path="/resetPassword" element={<ResetPassword />}></Route>
           </Routes>
         </AuthProvider>
       </ChakraProvider>

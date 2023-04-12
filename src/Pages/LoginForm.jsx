@@ -41,7 +41,7 @@ const LoginForm = () => {
 
               <Box>
                 <Box mt={2} textAlign="right">
-                  <Link fontSize="sm">Forgot Password?</Link>
+                  <Link  to="/resetPassword" fontSize="sm">Forgot Password?</Link>
                 </Box>
 
                 <Box mt={4} textAlign="center">
