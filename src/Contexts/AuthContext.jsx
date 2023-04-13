@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  sendPasswordResetEmail
 } from "firebase/auth";
 import { auth } from "../fbConfig";
 
@@ -54,6 +55,14 @@ export const AuthProvider = ({children}) => {
       });
   };
 
+  const resetPassword = async (email) => {
+    try {
+      await sendPasswordResetEmail(auth, email)
+    } catch (error) {
+      return error
+    }
+  }
+
   const checkForCurrentUser =()=> {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -68,7 +77,7 @@ export const AuthProvider = ({children}) => {
     checkForCurrentUser();
   }, []);
   return (
-    <AuthContext.Provider value={{ user, logIn, logOut, createNewUser }}>
+    <AuthContext.Provider value={{ user, logIn, logOut, createNewUser, resetPassword}}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import {
   Text,
   Input,
@@ -13,7 +12,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
-import { UserArea } from "../Pages/UserArea";
 import { useNavigate } from "react-router-dom";
 const PasswordInputs = ({ functionType }) => {
   const { createNewUser, logIn, user } = useContext(AuthContext);
