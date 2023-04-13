@@ -26,7 +26,7 @@ const SearchDentists = ({ placeholder, control, setDentists }) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           bg="white"
-          height="6vh"
+          height="8vh"
           width="45rem"
           type="text"
           placeholder={placeholder}

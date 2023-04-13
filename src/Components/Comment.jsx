@@ -123,8 +123,8 @@ export const Comment = ({ feedback, item }) => {
             })}
         </Box>
 
-        <Box borderWidth="2px" borderRadius="lg" p="24">
-          <Text fontSize="xl" fontWeight="bold" mb="6">
+        <Box borderWidth="2px" borderRadius="lg" p="18" width='full'>
+          <Text fontSize="xl" fontWeight="bold" mb="10">
             Feedback
           </Text>
           <Stack spacing="8">
@@ -133,6 +133,8 @@ export const Comment = ({ feedback, item }) => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 mr="4"
+                height={10}
+                width='full'
                 placeholder="Leave a comment"
               />
 
