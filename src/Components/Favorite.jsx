@@ -90,7 +90,7 @@ export const Favorite = ({ item, favorite }) => {
             <FontAwesomeIcon
               onClick={handleSubmit}
               icon={faHeart}
-              style={{ color: "blue" }}
+              style={{ color: "black" }}
             />
           )}
         </>

@@ -13,12 +13,10 @@ import { AuthContext } from "../Contexts/AuthContext";
 import { collection, addDoc, deleteDoc, doc, docId } from "firebase/firestore";
 import { db } from "../fbConfig";
 
-
 export const Comment = ({ feedback, item }) => {
   const { user } = useContext(AuthContext);
   const [inputValue, setInputValue] = useState("");
   const [dentistFeedback, setDentistFeedback] = useState([]);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,12 +38,15 @@ export const Comment = ({ feedback, item }) => {
         const feedbackDate = newMessage.date;
 
         const docRef = await addDoc(collection(db, "feedback"), newMessage);
-        setDentistFeedback([...dentistFeedback, {
-          id: docRef.id,
-          author: authorName,
-          text: textComment,
-          date: feedbackDate
-        }])
+        setDentistFeedback([
+          ...dentistFeedback,
+          {
+            id: docRef.id,
+            author: authorName,
+            text: textComment,
+            date: feedbackDate,
+          },
+        ]);
         setInputValue("");
 
         console.log("Document written with ID: ", docRef.id);
@@ -54,7 +55,6 @@ export const Comment = ({ feedback, item }) => {
         alert("try again");
       }
     }
-
   };
 
   const handleDelete = async (docId) => {
@@ -88,7 +88,7 @@ export const Comment = ({ feedback, item }) => {
           {dentistFeedback &&
             user &&
             dentistFeedback.map((feedback) => {
-              const comment = `${feedback.author} ${feedback.text} ${feedback.date} `
+              const comment = `${feedback.author} ${feedback.text} ${feedback.date} `;
 
               const canDelete = feedback.author === user.email;
 
@@ -98,6 +98,7 @@ export const Comment = ({ feedback, item }) => {
                   borderWidth="1px"
                   borderRadius="lg"
                   p="10"
+                  background="white"
                 >
                   <Avatar
                     name={feedback.author}
@@ -108,7 +109,7 @@ export const Comment = ({ feedback, item }) => {
                     <Text fontSize="md">{comment}</Text>
                     {canDelete && user && (
                       <Button
-                        colorScheme="red"
+                        background="yellow.200"
                         size="sm"
                         mt="2"
                         onClick={() => handleDelete(feedback.id)}
@@ -137,7 +138,7 @@ export const Comment = ({ feedback, item }) => {
               />
 
               <Button
-                colorScheme="blue"
+                background="yellow.200"
                 type="submit"
                 onClick={handleSubmit}
               >

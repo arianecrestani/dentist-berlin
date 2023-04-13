@@ -6,8 +6,6 @@ import Navbar from "../Components/Navbar";
 const RegisterForm = () => {
   const [headerForms, setHeaderForms] = useState("");
 
-  
-
   const headerStyle = () => {
     if ("register") {
       setHeaderForms(headerForms);
@@ -29,11 +27,17 @@ const RegisterForm = () => {
           <Box>
             <Box textAlign="center">
               {headerForms && (
-                <Heading onChange={headerStyle} as="h1" size="lg" mb={2}>
+                <Heading
+         
+                  onChange={headerStyle}
+                  as="h1"
+                  size="lg"
+                  mb={2}
+                >
                   Sing-up
                 </Heading>
               )}
-              <Heading color="gray.500">Sing-up</Heading>
+              <Heading color="black">Sing-up</Heading>
             </Box>
 
             <PasswordInputs functionType={"register"} />

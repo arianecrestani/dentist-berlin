@@ -47,7 +47,7 @@ export const Dentist = ({ item, index, feedback, favorite }) => {
       m="4"
       bg="teal.300"
     >
-      <Flex justifyContent="center" p={8}>
+      <Flex justifyContent="center" p={8} >
         <Avatar name={item.tags.name} src="https://bit.ly/broken-link" />
         <Box ml={3}>
           <Heading as="h2" size="md">

@@ -9,27 +9,38 @@ const SearchDentists = ({ placeholder, control, setDentists }) => {
     const filterArray = control.filter((item) =>
       item.tags.name.toLowerCase().includes(input.toLowerCase())
     );
-    console.log(filterArray)
-    setDentists(filterArray)
+    console.log(filterArray);
+    setDentists(filterArray);
   };
 
   return (
-    <Box display="flex" flexDirection="row" justifyContent="start" background='yellow.200'>
+    <Box
+      display="flex"
+      flexDirection="row"
+      justifyContent="start"
+      background="yellow.200"
+    >
       <InputGroup display="flex">
         <Input
           flex="1"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          borderRadius="5px"
           bg="white"
           height="6vh"
           width="45rem"
           type="text"
           placeholder={placeholder}
+          borderRadius="lg"
         />
       </InputGroup>
 
-      <SearchIcon boxSize={10} margin={3} display="flex" justifyContent="" onClick={handleClick}>
+      <SearchIcon
+        boxSize={10}
+        margin={3}
+        display="flex"
+        justifyContent=""
+        onClick={handleClick}
+      >
         search
       </SearchIcon>
     </Box>

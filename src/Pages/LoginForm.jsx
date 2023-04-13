@@ -36,7 +36,7 @@ const LoginForm = () => {
                   mb={2}
                 ></Heading>
               )}
-              <Heading color="gray.500">Log in</Heading>
+              <Heading color="black">Log in</Heading>
               <PasswordInputs functionType={"login"} />
 
               <Box>

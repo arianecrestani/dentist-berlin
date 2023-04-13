@@ -28,34 +28,34 @@ export const UserArea = () => {
   return (
     <div>
       <Navbar />
-      <Flex justifyContent="center" p={10} >
-      <Flex  direction="column">
-      {favoriteShows.map((favorite) => (
-        <div key={favorite.dentistID}>
-          <Box
-            maxW="sm"
-            borderWidth="1px"
-            borderRadius="lg"
-            overflow="hidden"
-            m="2"
-            p="4"
-          >
-            <Flex align="center">
-              <Avatar size="md" name={favorite.name} mr="4" />
-              <Box>
-                <Heading as="h3" size="md">
-                  {favorite.name}
-                </Heading>
-                <Text fontSize="sm">
-                  {favorite.city}, {favorite.street}
-                </Text>
+      <Flex justifyContent="center" p={10}>
+        <Flex direction="column">
+          {favoriteShows.map((favorite) => (
+            <div key={favorite.dentistID}>
+              <Box
+                maxW="sm"
+                borderWidth="1px"
+                borderRadius="lg"
+                overflow="hidden"
+                m="2"
+                p="10"
+                bg="teal.300"
+              >
+                <Flex align="center">
+                  <Avatar size="md" name={favorite.name} mr="4" />
+                  <Box>
+                    <Heading as="h3" size="md">
+                      {favorite.name}
+                    </Heading>
+                    <Text fontSize="sm">
+                      {favorite.city}, {favorite.street}
+                    </Text>
+                  </Box>
+                </Flex>
               </Box>
-            </Flex>
-          </Box>
-        </div>
-        
-      ))}
-      </Flex>
+            </div>
+          ))}
+        </Flex>
       </Flex>
     </div>
   );

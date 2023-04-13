@@ -78,7 +78,7 @@ const PasswordInputs = ({ functionType }) => {
         <Button
           onClick={handleSubmit}
           type="submit"
-          colorScheme="blue"
+          bg="teal.300"
           mt={2}
           width="full"
         >
