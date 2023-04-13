@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useContext } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
+import Navbar from "../Components/Navbar";
 
 export const ResetPassword = () => {
   const { resetPassword } = useContext(AuthContext);
@@ -27,19 +28,29 @@ export const ResetPassword = () => {
     setError(null);
 
     if (email.length > 1) {
-      alert("you have reset your password");
       resetPassword(email);
       setSuccess(true);
-    } else {
-      console.log("something wrong with email");
-      alert("fill out");
-      setSuccess(false);
-      setError(error.message);
-    }
+      alert("you have reset your password");
+      try {
+        await resetPassword(email);
+        setSuccess(true);
+      } catch (error) {
+        console.log("something wrong with email");
+        setSuccess(false);
+        setError(error.message);
+      }
+    
+      setIsLoading(false);
+    };
+  
+
+    
     setIsLoading(false);
   };
 
   return (
+    <>
+    <Navbar/>
     <Flex direction="column" align="center">
       <Box
         backgroundColor="gray.50"
@@ -62,7 +73,7 @@ export const ResetPassword = () => {
           <Button
             onClick={handleResetPassword}
             type="submit"
-            colorScheme="blue"
+            bg="teal.300"
             mt={4}
             width="full"
             isDisabled={isLoading || success}
@@ -84,5 +95,6 @@ export const ResetPassword = () => {
         </FormControl>
       </Box>
     </Flex>
+</>
   );
 };

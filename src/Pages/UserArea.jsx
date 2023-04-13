@@ -5,6 +5,7 @@ import { db } from "../fbConfig";
 import { AuthContext } from "../Contexts/AuthContext";
 import { Avatar, Box, Flex, Heading, Text } from "@chakra-ui/react";
 import Navbar from "../Components/Navbar";
+import { Favorite } from "../Components/Favorite";
 
 export const UserArea = () => {
   const { user } = useContext(AuthContext);
@@ -22,41 +23,51 @@ export const UserArea = () => {
       }
     };
 
+
     fetchFavoriteShows();
   }, [user]);
 
   return (
     <div>
       <Navbar />
-      <Flex justifyContent="center" p={10}>
-        <Flex direction="column">
-          {favoriteShows.map((favorite) => (
-            <div key={favorite.dentistID}>
-              <Box
-                maxW="sm"
-                borderWidth="1px"
-                borderRadius="lg"
-                overflow="hidden"
-                m="2"
-                p="10"
-                bg="teal.300"
-              >
-                <Flex align="center">
-                  <Avatar size="md" name={favorite.name} mr="4" />
-                  <Box>
-                    <Heading as="h3" size="md">
-                      {favorite.name}
-                    </Heading>
-                    <Text fontSize="sm">
-                      {favorite.city}, {favorite.street}
-                    </Text>
-                  </Box>
-                </Flex>
-              </Box>
-            </div>
-          ))}
+      {user && (
+        <Flex justifyContent="center" p={10}>
+          <Flex direction="column">
+            {favoriteShows.map((dentist, item, favorite) => (
+              <div key={dentist.dentistID}>
+                <Box
+                  maxW="sm"
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  overflow="hidden"
+                  m="2"
+                  p="10"
+                  bg="teal.300"
+                >
+                  <Flex align="center">
+                    <Avatar size="md" name={dentist.name} mr="4" />
+                    <Box>
+                      <Heading as="h3" size="md">
+                        {dentist.name}
+                      </Heading>
+                      <Text fontSize="sm">
+                        {dentist.city}, {dentist.street}
+                      </Text>
+                    </Box>
+                    <Flex display="flex" justifyContent="center" p={4}>
+                      <Favorite
+                        alignItems="center"
+                        item={item}
+                        favorite={favorite}
+                      />
+                    </Flex>
+                  </Flex>
+                </Box>
+              </div>
+            ))}
+          </Flex>
         </Flex>
-      </Flex>
+      )}
     </div>
   );
 };
