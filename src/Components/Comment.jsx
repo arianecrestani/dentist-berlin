@@ -82,8 +82,8 @@ export const Comment = ({ feedback, item }) => {
   }, [feedback]);
 
   return (
-    <div>
-      <Stack>
+    <Flex alignItems="center" justifyContent="center" justifyItems='center' justifySelf='center'>
+      <Stack alignItems="center" spacing="8">
         <Box borderWidth="1px" borderRadius="lg" p="10">
           {dentistFeedback &&
             user &&
@@ -122,8 +122,7 @@ export const Comment = ({ feedback, item }) => {
               );
             })}
         </Box>
-      </Stack>
-      <Box>
+
         <Box borderWidth="2px" borderRadius="lg" p="24">
           <Text fontSize="xl" fontWeight="bold" mb="6">
             Feedback
@@ -147,7 +146,7 @@ export const Comment = ({ feedback, item }) => {
             </Flex>
           </Stack>
         </Box>
-      </Box>
-    </div>
+      </Stack>
+    </Flex>
   );
 };
