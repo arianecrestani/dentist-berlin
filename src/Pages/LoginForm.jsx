@@ -39,10 +39,10 @@ const LoginForm = () => {
               <Heading color="black">Log in</Heading>
               <PasswordInputs functionType={"login"} />
 
-              <Box>
-                <Box mt={2} textAlign="right">
-                  <Link  to="/resetPassword" fontSize="sm">Forgot Password?</Link>
-                </Box>
+              <Box alignItems='end'>
+                <Flex justifyContent='center' mt={2}>
+                  <Link justifyItems='end' to="/resetPassword" alignItems='end'fontSize="sm">Forgot Password?</Link>
+                </Flex>
 
                 <Box mt={4} textAlign="center">
                   <Text fontSize="sm">Don't have an account yet?</Text>
