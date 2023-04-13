@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 
-export const HoursDetail = ({ isOpen, onClose, dentist }) => {
+export const DentistDetail = ({ isOpen, onClose, dentist }) => {
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>

@@ -84,11 +84,11 @@ export const Comment = ({ feedback, item }) => {
   return (
     <div>
       <Stack>
-        <Box borderWidth="1px" borderRadius="lg" p="8">
+        <Box borderWidth="1px" borderRadius="lg" p="10">
           {dentistFeedback &&
             user &&
             dentistFeedback.map((feedback) => {
-              const comment = `${feedback.author} ${feedback.text} ${feedback.date}`;
+              const comment = `${feedback.author} ${feedback.text} ${feedback.date} `
 
               const canDelete = feedback.author === user.email;
 
@@ -97,13 +97,13 @@ export const Comment = ({ feedback, item }) => {
                   key={feedback.id}
                   borderWidth="1px"
                   borderRadius="lg"
-                  p="4"
+                  p="10"
                 >
                   <Avatar
                     name={feedback.author}
                     src="https://bit.ly/broken-link"
                   />
-                  <Box ml="8">
+                  <Box ml="12">
                     <Text fontWeight="bold">{feedback.author}</Text>
                     <Text fontSize="md">{comment}</Text>
                     {canDelete && user && (

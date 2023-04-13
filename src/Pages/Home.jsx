@@ -87,7 +87,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <Box bg="blue.200" py={4} borderRadius="lg">
+      <Box bg="teal.300" py={4} borderRadius="lg">
         <Flex justifyContent="center" display="flex" flexDirection="wrap">
           <SearchDentists
             control={control}

@@ -12,13 +12,12 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { HoursDetail } from "./HoursDetail";
+import { DentistDetail } from "./DentistDetail";
 import { Comment } from "./Comment";
 import { Collapse } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { useContext } from "react";
 import { Favorite } from "./Favorite";
-
 
 export const Dentist = ({ item, index, feedback, favorite }) => {
   const [showMore, setShowMore] = useState(false);
@@ -46,9 +45,9 @@ export const Dentist = ({ item, index, feedback, favorite }) => {
       boxShadow="sm"
       p="14"
       m="4"
-      bg="blue.200"
+      bg="teal.300"
     >
-      <Flex justifyContent="center" p={4}>
+      <Flex justifyContent="center" p={8}>
         <Avatar name={item.tags.name} src="https://bit.ly/broken-link" />
         <Box ml={3}>
           <Heading as="h2" size="md">
@@ -60,17 +59,19 @@ export const Dentist = ({ item, index, feedback, favorite }) => {
           </Text>
         </Box>
       </Flex>
-      <Favorite item={item} favorite={favorite} />
-      <Divider />
+      <Flex display="flex" justifyContent="center" p={4}>
+        <Favorite alignItems="center" item={item} favorite={favorite} />
+      </Flex>
+      <Divider p={2} />
       <Box p={4}>
         <Collapse in={showMore}>
           <Box display="flex" justifyContent="end">
-            <HStack>
+            <HStack p={4} bg="white">
               <Comment feedback={feedback} item={item} />
             </HStack>
           </Box>
         </Collapse>
-        <HoursDetail
+        <DentistDetail
           isOpen={openCart.open}
           onOpen={() => setOpenCart({ open: true, dentist: openCart.dentist })}
           onClose={() => setOpenCart({ open: false, dentist: {} })}
@@ -79,7 +80,7 @@ export const Dentist = ({ item, index, feedback, favorite }) => {
 
         <Stack
           direction="row"
-          spacing={4}
+          spacing={8}
           align="center"
           justifyContent="center"
         >
@@ -87,8 +88,9 @@ export const Dentist = ({ item, index, feedback, favorite }) => {
             onClick={() => handleOpen(item)}
             background="yellow.200"
             variant="outline"
+            m={6}
           >
-       Dentist Details
+            Dentist Details
           </Button>
           <>
             {user ? (

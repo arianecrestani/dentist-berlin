@@ -11,7 +11,7 @@ const Navbar = () => {
   //para cada id tera uma lista de review
 
   return (
-    <Box bg="white" color="blue.500" >
+    <Box bg="white" color="black"  fontWeight="bold">
       <Flex padding={5} alignItems="center">
         <Text fontSize="xl" fontWeight="bold">
           Dentist Web Page
@@ -23,7 +23,7 @@ const Navbar = () => {
 
             {user ? (
               <>
-                <button onClick={logOut}>Logout</button>
+                <Link onClick={logOut}>Logout</Link>
                 <p>{user.email}</p>
                 <Link to="/user">User</Link>
               </>

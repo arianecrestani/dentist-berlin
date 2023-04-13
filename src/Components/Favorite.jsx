@@ -12,6 +12,7 @@ import { db } from "../fbConfig";
 import { AuthContext } from "../Contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { Flex } from "@chakra-ui/react";
 
 export const Favorite = ({ item, favorite }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -76,7 +77,7 @@ export const Favorite = ({ item, favorite }) => {
   }, [favorite]);
 
   return (
-    <>
+    <Flex>
       {user ? (
         <>
           {!isFavorite ? (
@@ -98,6 +99,6 @@ export const Favorite = ({ item, favorite }) => {
           You need to be logged in to favorite
         </span>
       )}
-    </>
+    </Flex>
   );
 };
