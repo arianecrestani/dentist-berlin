@@ -7,8 +7,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { AuthProvider } from "./Contexts/AuthContext";
 import { ResetPassword } from "./Pages/ResetPassword";
 
-
-
 const App = () => {
   return (
     <div className="App">

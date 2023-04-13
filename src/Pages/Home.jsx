@@ -10,10 +10,9 @@ import { collection, getDocs } from "firebase/firestore";
 import { AuthContext } from "../Contexts/AuthContext";
 import { where } from "firebase/firestore";
 
-
 const Home = () => {
-  const { user } = useContext(AuthContext)
-  console.log(user)
+  const { user } = useContext(AuthContext);
+  console.log(user);
 
   const [dentists, setDentists] = useState([]);
   const [control, setControl] = useState([]);
@@ -39,7 +38,10 @@ const Home = () => {
   };
 
   const getFavorite = async () => {
-    const querySnapshot = await getDocs(collection(db, "favorite"),where("userId", "==", user.uid));
+    const querySnapshot = await getDocs(
+      collection(db, "favorite"),
+      where("userId", "==", user.uid)
+    );
     const favoriteArray = [];
     querySnapshot.forEach((doc) => {
       const singleFavorite = {
@@ -47,19 +49,15 @@ const Home = () => {
         ...doc.data(),
       };
       favoriteArray.push(singleFavorite);
-
     });
     setFavorite(favoriteArray);
-    console.log('favorites',favoriteArray)
-    
+    console.log("favorites", favoriteArray);
   };
-
 
   const getFeedback = async () => {
     const querySnapshot = await getDocs(collection(db, "feedback"));
     const feedbackArray = [];
     querySnapshot.forEach((doc) => {
-
       const singleFeedback = {
         id: doc.id,
         ...doc.data(),
@@ -71,15 +69,14 @@ const Home = () => {
   };
 
   useEffect(() => {
-    
     getFeedback();
   }, []);
 
   useEffect(() => {
-    if(user){
-      getFavorite()
+    if (user) {
+      getFavorite();
     }
-  }, [user]);  
+  }, [user]);
 
   useEffect(() => {
     setLoading(true);
@@ -90,35 +87,21 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <div style={{ position: "relative" }}>
-        <Image
-          max-width="100%"
-          boxSize="full"
-          min-width="100%"
-          objectFit="cover"
-          zIndex="-1"
-          src={banner}
-          alt="Dan Abramov"
-        />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            position: "absolute",
-            top: "30%",
-            left: "30%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
+      <Box bg="blue.200" py={4} borderRadius="lg">
+        <Flex justifyContent="center" display="flex" flexDirection="wrap">
           <SearchDentists
             control={control}
             setDentists={setDentists}
             placeholder="Search for dentist "
+            display="flex"
+            flexDirection="row"
+            
           />
-        </div>
-      </div>
+        </Flex>
+      </Box>
+
       {loading && <Spinner color="red.500" />}
-          
+
       <Box>
         <Flex
           flexDirection="column"

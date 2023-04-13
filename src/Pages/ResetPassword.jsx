@@ -8,8 +8,8 @@ import {
   FormHelperText,
   Flex,
   FormErrorMessage,
+  Heading,
 } from "@chakra-ui/react";
-import { auth } from "../fbConfig"; // Import firebase auth module
 import { useState, useContext } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
 
@@ -30,7 +30,6 @@ export const ResetPassword = () => {
       alert("you have reset your password");
       resetPassword(email);
       setSuccess(true);
-
     } else {
       console.log("something wrong with email");
       alert("fill out");
@@ -39,7 +38,6 @@ export const ResetPassword = () => {
     }
     setIsLoading(false);
   };
-
 
   return (
     <Flex direction="column" align="center">
@@ -51,6 +49,7 @@ export const ResetPassword = () => {
         p={12}
         m={20}
       >
+
         <FormControl onSubmit={handleResetPassword}>
           <FormLabel>Email</FormLabel>
           <Input

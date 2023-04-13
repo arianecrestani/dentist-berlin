@@ -4,7 +4,8 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+
 } from "firebase/auth";
 import { auth } from "../fbConfig";
 
@@ -55,6 +56,7 @@ export const AuthProvider = ({children}) => {
       });
   };
 
+  
   const resetPassword = async (email) => {
     try {
       await sendPasswordResetEmail(auth, email)

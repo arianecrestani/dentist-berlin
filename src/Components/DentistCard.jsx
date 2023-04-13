@@ -18,8 +18,7 @@ import { Collapse } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { useContext } from "react";
 import { Favorite } from "./Favorite";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../fbConfig";
+
 
 export const Dentist = ({ item, index, feedback, favorite }) => {
   const [showMore, setShowMore] = useState(false);
@@ -45,10 +44,9 @@ export const Dentist = ({ item, index, feedback, favorite }) => {
       borderRadius="lg"
       overflow="hidden"
       boxShadow="sm"
-      bg="white"
       p="14"
       m="4"
-      // bg="#EEFBFA"
+      bg="blue.200"
     >
       <Flex justifyContent="center" p={4}>
         <Avatar name={item.tags.name} src="https://bit.ly/broken-link" />
@@ -90,7 +88,7 @@ export const Dentist = ({ item, index, feedback, favorite }) => {
             background="yellow.200"
             variant="outline"
           >
-            Availability
+       Dentist Details
           </Button>
           <>
             {user ? (

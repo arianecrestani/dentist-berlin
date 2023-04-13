@@ -6,6 +6,8 @@ import Navbar from "../Components/Navbar";
 const RegisterForm = () => {
   const [headerForms, setHeaderForms] = useState("");
 
+  
+
   const headerStyle = () => {
     if ("register") {
       setHeaderForms(headerForms);
