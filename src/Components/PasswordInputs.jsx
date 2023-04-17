@@ -51,20 +51,23 @@ const PasswordInputs = ({ functionType }) => {
   };
   return (
     <>
-     
-        <Box>
-          <FormControl>
-            <FormLabel>Name</FormLabel>
-            <Input
-              onChange={(event) => setName(event.target.value)}
-              value={name}
-              type="name"
-              style={inputStyle}
-            />
-            <FormHelperText>Say me your name!</FormHelperText>
-            <FormErrorMessage>Your First name is invalid</FormErrorMessage>
-          </FormControl>
-        </Box>
+     {functionType === "register" && (
+              <Box>
+              <FormControl>
+                <FormLabel>Name</FormLabel>
+                <Input
+                  onChange={(event) => setName(event.target.value)}
+                  value={name}
+                  type="name"
+                  style={inputStyle}
+                />
+                <FormHelperText>Say me your name!</FormHelperText>
+                <FormErrorMessage>Your First name is invalid</FormErrorMessage>
+              </FormControl>
+            </Box>
+
+     )}
+ 
     
       <Box>
         <FormControl onSubmit={handleSubmit}>

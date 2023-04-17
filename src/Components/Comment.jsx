@@ -23,7 +23,7 @@ export const Comment = ({ feedback, item }) => {
 
     // find the name of the user in the user collection by email.
     const date = new Date().toDateString();
-    // const name = await getUserByEmail(user.userID)
+
     const newMessage = {
       userEmail: user.email,
       userName: user.displayName,
@@ -97,8 +97,7 @@ export const Comment = ({ feedback, item }) => {
             user &&
             dentistFeedback.map((feedback) => {
               const comment = `${feedback.name}${feedback.text} ${feedback.date} `;
-
-              // const canDelete = feedback.userName === user.email;
+              const canDelete = feedback.userName === user.name;
 
               return (
                 <Flex
@@ -115,7 +114,7 @@ export const Comment = ({ feedback, item }) => {
                   <Box ml="12">
                     <Text fontWeight="bold">{feedback.name}</Text>
                     <Text fontSize="md">{comment}</Text>
-                    {/* {canDelete && user && (
+                    {canDelete && user && (
                       <Button
                         background="yellow.200"
                         size="sm"
@@ -124,7 +123,7 @@ export const Comment = ({ feedback, item }) => {
                       >
                         Delete
                       </Button>
-                    )} */}
+                    )}
                   </Box>
                 </Flex>
               );
