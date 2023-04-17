@@ -5,31 +5,36 @@ import {
   onAuthStateChanged,
   signOut,
   sendPasswordResetEmail,
-
+  updateProfile
+  
 } from "firebase/auth";
 import { auth } from "../fbConfig";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../fbConfig";
 
 export const AuthContext = createContext([]);
 
-export const AuthProvider = ({children}) => {
-  const [user, setUser] = useState(null)
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
 
-  const createNewUser = (email, password) => {
+  const createNewUser = (email, password, name) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const newUser = userCredential.user;
-        console.log(newUser);
-        alert('hey have you now register')
-  
-      
+        console.log(userCredential.user)
+        addDoc(collection(db, "users"), {
+          userId: userCredential.user.uid,
+          name: name,
+        });
+        updateProfile(userCredential.user, {
+          displayName: name,
+        }).then((result) => {
+          console.log(result)
+        })
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
+        console.log(error.message);
       });
   };
-
 
   const logIn = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
@@ -37,35 +42,33 @@ export const AuthProvider = ({children}) => {
         const loggedUser = userCredential.user;
         setUser(loggedUser);
       })
-      .catch((error)=> {
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
       });
   };
 
-  const logOut =()=> {
+  const logOut = () => {
     signOut(auth)
       .then(() => {
         setUser(null);
         console.log("use is logout");
-        
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  
   const resetPassword = async (email) => {
     try {
-      await sendPasswordResetEmail(auth, email)
+      await sendPasswordResetEmail(auth, email);
     } catch (error) {
-      return error
+      return error;
     }
-  }
+  };
 
-  const checkForCurrentUser =()=> {
+  const checkForCurrentUser = () => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
@@ -79,7 +82,9 @@ export const AuthProvider = ({children}) => {
     checkForCurrentUser();
   }, []);
   return (
-    <AuthContext.Provider value={{ user, logIn, logOut, createNewUser, resetPassword}}>
+    <AuthContext.Provider
+      value={{ user, logIn, logOut, createNewUser, resetPassword }}
+    >
       {children}
     </AuthContext.Provider>
   );

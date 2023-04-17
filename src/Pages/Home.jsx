@@ -6,7 +6,7 @@ import Navbar from "../Components/Navbar";
 import SearchDentists from "../Components/SearchDentists";
 import { Dentist } from "../Components/DentistCard";
 import { db } from "../fbConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc } from "firebase/firestore";
 import { AuthContext } from "../Contexts/AuthContext";
 import { where } from "firebase/firestore";
 
@@ -19,6 +19,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState([]);
   const [favorite, setFavorite] = useState([]);
+  const [userId, setUserId] = useState("");
 
   const getApiData = async () => {
     const testUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node(around:3000,52.516275,13.377704)[amenity=dentist];out;`;
@@ -68,6 +69,28 @@ const Home = () => {
     setFeedback(feedbackArray);
   };
 
+  const getUserById = async () => {
+    const querySnapshot = await getDocs(
+      collection(db, "users"),
+      where("userId", "==", user.uid)
+    );
+
+    const userArray = [];
+    querySnapshot.forEach((doc) => {
+      const singleUser = {
+        id: doc.id,
+        ...doc.data(),
+      };
+
+      userArray.push(singleUser);
+    });
+    setUserId(userArray);
+  };
+
+  useEffect(() => {
+    getUserById();
+  }, []);
+
   useEffect(() => {
     getFeedback();
   }, []);
@@ -87,6 +110,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
+
       <Box bg="teal.300" py={4} borderRadius="lg">
         <Flex justifyContent="center" display="flex" flexDirection="wrap">
           <SearchDentists
@@ -95,7 +119,6 @@ const Home = () => {
             placeholder="Search for dentist "
             display="flex"
             flexDirection="row"
-            
           />
         </Flex>
       </Box>
@@ -109,13 +132,13 @@ const Home = () => {
           alignItems="center"
           display="flex"
         >
-          {dentists.map((item, index) => (
+          {dentists.map((item) => (
             <Dentist
-              key={index}
+              key={item.id}
               item={item}
-              index={index}
               feedback={feedback}
               favorite={favorite}
+              userId={userId}
             />
           ))}
         </Flex>

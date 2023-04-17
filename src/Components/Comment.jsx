@@ -10,7 +10,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
-import { collection, addDoc, deleteDoc, doc, docId } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../fbConfig";
 
 export const Comment = ({ feedback, item }) => {
@@ -20,33 +20,38 @@ export const Comment = ({ feedback, item }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const date = new Date().toDateString();
 
+    // find the name of the user in the user collection by email.
+    const date = new Date().toDateString();
+    // const name = await getUserByEmail(user.userID)
     const newMessage = {
-      author: user.email,
-      text: inputValue,
+      userEmail: user.email,
+      userName: user.displayName,
+      userId: user.uid,
       date: date,
       dentist: item.id,
+      text: inputValue,
     };
 
     if (inputValue === "") {
       alert("please fill out");
     } else {
       try {
-        const authorName = newMessage.author;
+        const name = newMessage.userName;
         const textComment = newMessage.text;
         const feedbackDate = newMessage.date;
 
-        const docRef = await addDoc(collection(db, "feedback"), newMessage);
+        const docRef = await addDoc(collection(db, "feedback"), newMessage); //retorna o que ja foi criado só que com um id para essa colecao de objetos que foi criada
         setDentistFeedback([
           ...dentistFeedback,
           {
             id: docRef.id,
-            author: authorName,
+            name: name,
             text: textComment,
             date: feedbackDate,
           },
         ]);
+        console.log(docRef);
         setInputValue("");
 
         console.log("Document written with ID: ", docRef.id);
@@ -66,8 +71,6 @@ export const Comment = ({ feedback, item }) => {
       setDentistFeedback(
         dentistFeedback.filter((feedback) => feedback.id !== docId)
       );
-
-      // setIsUser(true)
     } catch (e) {
       console.error("Error deleting document: ", e);
       alert("try again");
@@ -82,15 +85,20 @@ export const Comment = ({ feedback, item }) => {
   }, [feedback]);
 
   return (
-    <Flex alignItems="center" justifyContent="center" justifyItems='center' justifySelf='center'>
+    <Flex
+      alignItems="center"
+      justifyContent="center"
+      justifyItems="center"
+      justifySelf="center"
+    >
       <Stack alignItems="center" spacing="8">
         <Box borderWidth="1px" borderRadius="lg" p="10">
           {dentistFeedback &&
             user &&
             dentistFeedback.map((feedback) => {
-              const comment = `${feedback.author} ${feedback.text} ${feedback.date} `;
+              const comment = `${feedback.name}${feedback.text} ${feedback.date} `;
 
-              const canDelete = feedback.author === user.email;
+              // const canDelete = feedback.userName === user.email;
 
               return (
                 <Flex
@@ -101,13 +109,13 @@ export const Comment = ({ feedback, item }) => {
                   background="white"
                 >
                   <Avatar
-                    name={feedback.author}
+                    name={feedback.name}
                     src="https://bit.ly/broken-link"
                   />
                   <Box ml="12">
-                    <Text fontWeight="bold">{feedback.author}</Text>
+                    <Text fontWeight="bold">{feedback.name}</Text>
                     <Text fontSize="md">{comment}</Text>
-                    {canDelete && user && (
+                    {/* {canDelete && user && (
                       <Button
                         background="yellow.200"
                         size="sm"
@@ -116,14 +124,14 @@ export const Comment = ({ feedback, item }) => {
                       >
                         Delete
                       </Button>
-                    )}
+                    )} */}
                   </Box>
                 </Flex>
               );
             })}
         </Box>
 
-        <Box borderWidth="2px" borderRadius="lg" p="18" width='full'>
+        <Box borderWidth="2px" borderRadius="lg" p="18" width="full">
           <Text fontSize="xl" fontWeight="bold" mb="10">
             Feedback
           </Text>
@@ -134,7 +142,7 @@ export const Comment = ({ feedback, item }) => {
                 onChange={(e) => setInputValue(e.target.value)}
                 mr="4"
                 height={10}
-                width='full'
+                width="full"
                 placeholder="Leave a comment"
               />
 

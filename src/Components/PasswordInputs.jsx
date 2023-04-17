@@ -13,20 +13,20 @@ import {
 } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+
 const PasswordInputs = ({ functionType }) => {
   const { createNewUser, logIn, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
+  const [name, setName]= useState('')
   const [password, setPassword] = useState("");
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (functionType === "register") {
-      createNewUser(email, password);
+      createNewUser(email, password, name);
+      setName('')
       setEmail("");
       setPassword("");
     }
@@ -51,11 +51,26 @@ const PasswordInputs = ({ functionType }) => {
   };
   return (
     <>
+     
+        <Box>
+          <FormControl>
+            <FormLabel>Name</FormLabel>
+            <Input
+              onChange={(event) => setName(event.target.value)}
+              value={name}
+              type="name"
+              style={inputStyle}
+            />
+            <FormHelperText>Say me your name!</FormHelperText>
+            <FormErrorMessage>Your First name is invalid</FormErrorMessage>
+          </FormControl>
+        </Box>
+    
       <Box>
         <FormControl onSubmit={handleSubmit}>
           <FormLabel>Email</FormLabel>
           <Input
-            onChange={handleEmailChange}
+            onChange={(event) => setEmail(event.target.value)}
             value={email}
             type="email"
             style={inputStyle}

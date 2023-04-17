@@ -23,7 +23,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWheelchair } from "@fortawesome/free-solid-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
-export const Dentist = ({ item, index, feedback, favorite }) => {
+export const Dentist = ({ item, feedback, favorite, users }) => {
   const [showMore, setShowMore] = useState(false);
 
   const { user } = useContext(AuthContext);
@@ -99,7 +99,7 @@ export const Dentist = ({ item, index, feedback, favorite }) => {
         <Collapse in={showMore}>
           <Box display="flex" justifyContent="center" p={8}>
             <HStack p={4} bg="white">
-              <Comment feedback={feedback} item={item} />
+              <Comment feedback={feedback} item={item} users={users} />
             </HStack>
           </Box>
         </Collapse>
