@@ -46,7 +46,7 @@ export const Comment = ({ feedback, item }) => {
           ...dentistFeedback,
           {
             id: docRef.id,
-            name: name,
+            userName: name,
             text: textComment,
             date: feedbackDate,
           },
@@ -96,8 +96,8 @@ export const Comment = ({ feedback, item }) => {
           {dentistFeedback &&
             user &&
             dentistFeedback.map((feedback) => {
-              const comment = `${feedback.name}${feedback.text} ${feedback.date} `;
-              const canDelete = feedback.userName === user.name;
+              const comment = `${feedback.text} ${feedback.date} `;
+              const canDelete = feedback.userName === user.displayName;
 
               return (
                 <Flex
@@ -108,11 +108,11 @@ export const Comment = ({ feedback, item }) => {
                   background="white"
                 >
                   <Avatar
-                    name={feedback.name}
+                    name={feedback.userName}
                     src="https://bit.ly/broken-link"
                   />
                   <Box ml="12">
-                    <Text fontWeight="bold">{feedback.name}</Text>
+                    <Text fontWeight="bold">{feedback.userName}</Text>
                     <Text fontSize="md">{comment}</Text>
                     {canDelete && user && (
                       <Button
